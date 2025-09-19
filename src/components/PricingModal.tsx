@@ -172,5 +172,6 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
+  )
   );
 } 

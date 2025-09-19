@@ -61,13 +61,35 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
 
           <div className="flex-grow overflow-y-auto min-h-0">
             <TabsContent value="packages" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 py-2">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 py-2">
+                {/* Free Plan */}
+                <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
+                  <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 10</h3>
+                  <p className="text-2xl font-bold text-green-400 my-3">FREE</p>
+                  <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
+                    <li>✨ 1 Image Transform</li>
+                    <li>💰 One-time only</li>
+                    <li>🎨 Access to 100+ Styles</li>
+                    <li>⏱️ < 1 Min Turnaround</li>
+                  </ul>
+                  <Button 
+                    className="w-full mt-auto bg-green-600 hover:bg-green-700 text-white playful-shadow"
+                    onClick={() => {
+                      // Close modal and let user start using the free credits
+                      onClose();
+                      toast.success("You have 10 free stars to get started!");
+                    }}
+                  >
+                      Get Started Free
+                  </Button>
+                </div>
+                
                 <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
                   <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 50</h3>
-                  <p className="text-2xl font-bold text-yellow-400 my-3">$3.00</p>
+                  <p className="text-2xl font-bold text-yellow-400 my-3">$10.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
                     <li>✨ Approx. 5 Image Transforms</li>
-                    <li>💰 $0.06 per Star</li>
+                    <li>💰 $0.20 per Star</li>
                     <li>🎨 Access to 100+ Styles</li>
                     <li>⏱️ &lt; 1 Min Turnaround</li>
                   </ul>
@@ -81,10 +103,10 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                 <div className="border-2 border-yellow-400 rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/10 flex flex-col ring-2 ring-yellow-400/50 shadow-lg relative">
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-[#3a2e23] px-3 py-0.5 rounded-full text-xs font-bold">Most Popular</div>
                   <h3 className="font-semibold text-lg mb-1 text-white mt-3 flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 120</h3>
-                  <p className="text-2xl font-bold text-yellow-400 my-3">$6.00</p>
+                  <p className="text-2xl font-bold text-yellow-400 my-3">$20.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
                     <li>✨ Approx. 12 Image Transforms</li>
-                    <li>💰 $0.05 per Star</li>
+                    <li>💰 $0.17 per Star</li>
                     <li>🎨 Access to 100+ Styles</li>
                     <li>⏱️ &lt; 1 Min Turnaround</li>
                   </ul>
@@ -97,10 +119,10 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                 </div>
                 <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
                   <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 300</h3>
-                  <p className="text-2xl font-bold text-yellow-400 my-3">$12.00</p>
+                  <p className="text-2xl font-bold text-yellow-400 my-3">$45.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
                     <li>✨ Approx. 30 Image Transforms</li>
-                    <li>💰 $0.04 per Star</li>
+                    <li>💰 $0.15 per Star</li>
                     <li>🎨 Access to 100+ Styles</li>
                     <li>⏱️ &lt; 1 Min Turnaround</li>
                   </ul>
@@ -117,7 +139,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
             <TabsContent value="subscription" className="mt-0">
               <div className="border-2 border-yellow-400 rounded-lg p-6 sm:p-8 text-center bg-[#e9e2d6]/10 flex flex-col items-center shadow-lg ring-2 ring-yellow-400/50">
                 <h3 className="font-semibold text-xl mb-2 text-white">Monthly Subscription</h3>
-                <p className="text-3xl font-bold text-yellow-400 my-3">$21 / month</p>
+                <p className="text-3xl font-bold text-yellow-400 my-3">$30 / month</p>
                 <p className="text-lg text-white mb-4">
                   Unlock premium features & enhance your creativity!
                 </p>

@@ -41,6 +41,7 @@ import 'react-loading-skeleton/dist/skeleton.css';
 import { Link } from 'react-router-dom';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
 import { stylePrompts } from '@/lib/stylePrompts';
+import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
 
 // Use Vite's import.meta.env for frontend environment variables
 // Use the VITE_ prefixed variable name
@@ -51,6 +52,25 @@ const GALAXY_IMAGE_URL = "/images/theGalazy.png";
 const googleAuthClient = createAuthClient({
   baseURL: `${BACKEND_BASE_URL.replace(/\/$/, '')}/api/auth`
 });
+
+// Define gallery items with image paths and associated style IDs
+const GALLERY_ITEMS = [
+  { id: 'example1', src: '/images/examples01.png', styleId: 'ghibli' },
+  { id: 'example2', src: '/images/examples02.png', styleId: 'pixel_art' },
+  { id: 'example3', src: '/images/examples03.png', styleId: 'cartoon' },
+  { id: 'example4', src: '/images/examples04.png', styleId: 'anime' },
+  { id: 'example5', src: '/images/examples05.png', styleId: 'watercolor' },
+  { id: 'example6', src: '/images/examples06.png', styleId: 'oil_painting' },
+  // Add more examples as needed, mapping to existing stylePrompts keys
+  { id: 'example7', src: '/images/examples01.png', styleId: 'ghibli' },
+  { id: 'example8', src: '/images/examples02.png', styleId: 'pixel_art' },
+  { id: 'example9', src: '/images/examples03.png', styleId: 'cartoon' },
+  { id: 'example10', src: '/images/examples04.png', styleId: 'anime' },
+  { id: 'example11', src: '/images/examples05.png', styleId: 'watercolor' },
+  { id: 'example12', src: '/images/examples06.png', styleId: 'oil_painting' },
+];
+
+const ITEMS_PER_PAGE = 6; // Number of gallery items per page
 
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -82,6 +102,7 @@ const Index = () => {
     isLoading: boolean; 
     error: any | null; 
   }>({ data: null, isLoading: true, error: null });
+  const [currentPage, setCurrentPage] = useState(1); // State for current pagination page
   
   // --- Determine if Mobile (can be done outside hooks now) ---
   // Note: This check runs on initial render and might not update if window is resized
@@ -635,6 +656,18 @@ const Index = () => {
   }
   */
 
+  // Calculate total pages for pagination
+  const totalPages = Math.ceil(GALLERY_ITEMS.length / ITEMS_PER_PAGE);
+  const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+  const endIndex = startIndex + ITEMS_PER_PAGE;
+  const currentGalleryItems = GALLERY_ITEMS.slice(startIndex, endIndex);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    // Scroll to the gallery section when page changes
+    document.getElementById('gallery-section')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // --- Render the main application UI if not mobile --- 
   return (
     <SkeletonTheme baseColor="#e0d8c7" highlightColor="#f4efe4">
@@ -974,17 +1007,53 @@ const Index = () => {
 
           {/* TO BE ADDED AS TIME GOES ON */}
           
-          <section className="py-16 text-center mb-16">
+          <section id="gallery-section" className="py-16 text-center mb-16">
             <h2 className="text-3xl font-bold mb-8 text-white"><span className="text-4xl">See the Magic!</span> <br /> Choose from over 100 different styles!</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="bg-[#e9e2d6]/70 backdrop-blur-sm rounded-lg playful-shadow playful-border overflow-hidden aspect-square flex items-center justify-center">
-                  <div className="w-full h-full bg-[#a87b5d]/30 flex items-center justify-center text-center p-4">
-                    <img src={`/images/examples0${i}.png`} alt={`Example ${i}`} className="w-full h-full object-cover" />
+              {currentGalleryItems.map((item) => (
+                <div key={item.id} className="relative bg-[#e9e2d6]/70 backdrop-blur-sm rounded-lg playful-shadow playful-border overflow-hidden aspect-square group">
+                  <img src={item.src} alt={`Example ${item.id}`} className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105" />
+                  <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <Button 
+                      variant="secondary" 
+                      className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
+                      onClick={() => setSelectedStyle(item.styleId)}
+                    >
+                      Use This Style
+                    </Button>
                   </div>
                 </div>
               ))}
             </div>
+            <Pagination className="mt-8">
+              <PaginationContent>
+                <PaginationItem>
+                  <PaginationPrevious 
+                    href="#" 
+                    onClick={(e) => { e.preventDefault(); handlePageChange(currentPage - 1); }} 
+                    className={currentPage === 1 ? "pointer-events-none opacity-50" : undefined}
+                  />
+                </PaginationItem>
+                {[...Array(totalPages)].map((_, index) => (
+                  <PaginationItem key={index}>
+                    <PaginationLink 
+                      href="#" 
+                      onClick={(e) => { e.preventDefault(); handlePageChange(index + 1); }}
+                      isActive={currentPage === index + 1}
+                    >
+                      {index + 1}
+                    </PaginationLink>
+                  </PaginationItem>
+                ))}
+                <PaginationItem>
+                  <PaginationNext 
+                    href="#" 
+                    onClick={(e) => { e.preventDefault(); handlePageChange(currentPage + 1); }} 
+                    className={currentPage === totalPages ? "pointer-events-none opacity-50" : undefined}
+                  />
+                </PaginationItem>
+              </PaginationContent>
+            </Pagination>
           </section>
           
 

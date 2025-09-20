@@ -86,7 +86,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                 
                 {/* 50 Stars Package */}
                 <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
-                  <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 50</h3>
+                  <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 200</h3>
                   <p className="text-2xl font-bold text-yellow-400 my-3">$10.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
                     <li>✨ Approx. 20 Image Transforms</li>
@@ -105,7 +105,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                 {/* 120 Stars Package - Most Popular */}
                 <div className="border-2 border-yellow-400 rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/10 flex flex-col ring-2 ring-yellow-400/50 shadow-lg relative">
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-400 text-[#3a2e23] px-3 py-0.5 rounded-full text-xs font-bold">Most Popular</div>
-                  <h3 className="font-semibold text-lg mb-1 text-white mt-3 flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 120</h3>
+                  <h3 className="font-semibold text-lg mb-1 text-white mt-3 flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 500</h3>
                   <p className="text-2xl font-bold text-yellow-400 my-3">$20.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
                     <li>✨ Approx. 50 Image Transforms</li>

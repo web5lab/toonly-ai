@@ -89,7 +89,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                   <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 50</h3>
                   <p className="text-2xl font-bold text-yellow-400 my-3">$10.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
-                    <li>✨ Approx. 5 Image Transforms</li>
+                    <li>✨ Approx. 20 Image Transforms</li>
                     <li>💰 $0.20 per Star</li>
                     <li>🎨 Access to 100+ Styles</li>
                     <li>⏱️ &lt; 1 Min Turnaround</li>
@@ -108,7 +108,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                   <h3 className="font-semibold text-lg mb-1 text-white mt-3 flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 120</h3>
                   <p className="text-2xl font-bold text-yellow-400 my-3">$20.00</p>
                   <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
-                    <li>✨ Approx. 12 Image Transforms</li>
+                    <li>✨ Approx. 50 Image Transforms</li>
                     <li>💰 $0.17 per Star</li>
                     <li>🎨 Access to 100+ Styles</li>
                     <li>⏱️ &lt; 1 Min Turnaround</li>
@@ -121,23 +121,6 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
                   </Button>
                 </div>
 
-                {/* 300 Stars Package */}
-                <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
-                  <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 300</h3>
-                  <p className="text-2xl font-bold text-yellow-400 my-3">$45.00</p>
-                  <ul className="text-xs text-[#f4efe4]/70 list-none space-y-1 my-4 text-left px-2 flex-grow">
-                    <li>✨ Approx. 30 Image Transforms</li>
-                    <li>💰 $0.15 per Star</li>
-                    <li>🎨 Access to 100+ Styles</li>
-                    <li>⏱️ &lt; 1 Min Turnaround</li>
-                  </ul>
-                  <Button 
-                    className="w-full mt-auto bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
-                    onClick={() => initiatePayment(PACKAGE_300_ID, 300, "300 stars")}
-                   >
-                      Buy Now
-                  </Button>
-                </div>
               </div>
             </TabsContent>
 

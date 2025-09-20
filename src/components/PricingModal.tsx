@@ -61,7 +61,7 @@ export function PricingModal({ isOpen, onClose, userId }: PricingModalProps) {
 
           <div className="flex-grow overflow-y-auto min-h-0">
             <TabsContent value="packages" className="mt-0">
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-4 sm:gap-6 py-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 py-2">
                 {/* Free Plan */}
                 <div className="border border-[#5D4037] rounded-lg p-4 sm:p-6 text-center bg-[#e9e2d6]/5 flex flex-col hover:bg-[#e9e2d6]/10 transition-colors shadow-md">
                   <h3 className="font-semibold text-lg mb-1 text-white flex items-center justify-center gap-1"><Star className="h-4 w-4 inline text-yellow-400"/> 10</h3>

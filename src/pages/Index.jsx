@@ -63,6 +63,7 @@ const ITEMS_PER_PAGE = 6; // Number of gallery items per page
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState("ghibli");
+  const [customPrompt, setCustomPrompt] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingTimeMs, setProcessingTimeMs] = useState(0);
   const startTimeRef = useRef(null);
@@ -73,7 +74,6 @@ const Index = () => {
   const [isLoadingCredits, setIsLoadingCredits] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isLoadingSubscriptionStatus, setIsLoadingSubscriptionStatus] = useState(true);
-  const [customPrompt, setCustomPrompt] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
@@ -652,6 +652,8 @@ const Index = () => {
                 <StyleSelector
                   selectedStyle={selectedStyle}
                   onChange={handleStyleChange}
+                  customPrompt={customPrompt}
+                  onCustomPromptChange={setCustomPrompt}
                   disabled={isProcessing || isEditing || (isAuthenticated && isSubscribed && !!processedImageUrl)}
                 />
 

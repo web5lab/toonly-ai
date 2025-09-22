@@ -635,17 +635,10 @@ const Index = () => {
                   <div className={`space-y-2 p-4 bg-white/30 rounded-lg border border-[#a87b5d]/40 shadow-inner transition-opacity duration-300 ${processedImageUrl ? 'opacity-100' : 'opacity-50'}`}>
                     <Label htmlFor="custom-prompt" className="flex items-center gap-1.5 text-sm font-semibold text-[#5D4037]">
                       <Pencil className="h-4 w-4" />
-                      Edit Transformation
-                    </Label>
-                    <Textarea
-                      id="custom-prompt"
-                      placeholder={processedImageUrl ? "Describe further edits (e.g., 'add glasses', 'change background to forest')..." : "Transform an image first to enable editing."}
-                      value={customPrompt}
-                      onChange={(e) => setCustomPrompt(e.target.value)}
-                      disabled={!processedImageUrl || isProcessing || isEditing}
-                      className="bg-white/80 border-[#a87b5d]/60 text-[#3a2e23] placeholder:text-[#5D4037]/70 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8b5e3c] focus-visible:ring-offset-0 min-h-[80px] resize-none disabled:cursor-not-allowed disabled:bg-opacity-60"
-                    />
-                  </div>
+        <div className="container mx-auto px-4 py-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-7xl mx-auto">
+            {/* Left Column - Style Selection and Customization */}
+            <div className="space-y-6">
                 )}
                 {/* --- End Edit Transformation Area --- */}
 
@@ -683,12 +676,26 @@ const Index = () => {
 
                   {/* New Edit Button (Subscribers Only, after transform) */}
                   {isAuthenticated && isSubscribed && (
-                    <Button
-                      onClick={handleEditImage}
-                      className="flex-1 bg-blue-600 hover:bg-blue-700 text-white playful-shadow flex items-center justify-center gap-2 w-full sm:w-auto text-base"
-                    >
-                      {isEditing ? (
-                        <>
+            {/* Right Column - Generated Image (Top) and Upload Form (Bottom) */}
+            <div className="space-y-6">
+              {/* Generated Image - Top */}
+              <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                <div className="p-4 border-b border-[#a87b5d]/30">
+                  <h2 className="text-xl font-bold text-[#5D4037]">Your Transformed Image</h2>
+                </div>
+                <div className="h-[350px]">
+                  <ImageResult
+                    imageUrl={resultImage}
+                    isLoading={isProcessing}
+                    formattedProcessingTime={formattedProcessingTime}
+                    onDownload={handleDownload}
+                  />
+                </div>
+              </div>
+
+              {/* Upload Form - Bottom */}
+              <div className="bg-[#f4efe4]/80 backdrop-blur-sm p-4 rounded-xl playful-shadow playful-border">
+                <h2 className="text-xl font-bold mb-3 text-[#5D4037]">Upload Your Image</h2>
                           <Loader2 className="h-4 w-4 animate-spin" />
                           <span>Editing...</span>
                         </>

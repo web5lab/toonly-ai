@@ -69,7 +69,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
       {!previewUrl ? (
         <div
           className={cn(
-            "border-[3px] border-dashed rounded-xl p-6 flex flex-col items-center justify-center h-[300px] transition-all stitch-border bg-[#f4efe4]",
+            "border-[3px] border-dashed rounded-xl p-4 flex flex-col items-center justify-center h-[200px] transition-all stitch-border bg-[#f4efe4]",
             isDragging ? "border-[#6d4c30] bg-[#a87b5d]/10" : "border-[#a87b5d] hover:border-[#6d4c30] hover:bg-[#a87b5d]/5",
             className
           )}
@@ -77,9 +77,9 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
         >
-          <Upload className="h-12 w-12 text-[#8b5e3c] mb-4" />
-          <p className="text-lg font-medium mb-2 text-[#5D4037]">Drag & drop an image</p>
-          <p className="text-sm text-[#8b5e3c] mb-4">PNG, JPG, WEBP (max 10MB)</p>
+          <Upload className="h-8 w-8 text-[#8b5e3c] mb-2" />
+          <p className="text-base font-medium mb-1 text-[#5D4037]">Drag & drop an image</p>
+          <p className="text-xs text-[#8b5e3c] mb-3">PNG, JPG, WEBP (max 10MB)</p>
           <input
             id="image-upload"
             type="file"
@@ -90,7 +90,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <Button 
             onClick={() => document.getElementById('image-upload')?.click()}
             type="button"
-            className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
+            className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow text-sm py-2"
           >
             <span>Select Image</span>
           </Button>
@@ -118,7 +118,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <img
             src={previewUrl}
             alt="Preview"
-            className="rounded-xl object-cover w-full max-h-[300px]"
+            className="rounded-xl object-cover w-full max-h-[200px]"
           />
         </div>
       )}

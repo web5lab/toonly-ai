@@ -7,7 +7,7 @@ import { Loader2, Brush, Pencil, Edit } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processedImageUrl, selectedStyle, customPrompt, formattedProcessingTime, handleImageSelect, handleStyleChange, setCustomPrompt, handleTransformClick, handleEditImage, downloadImage}) {
+function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processedImageUrl, originalImageUrl, selectedStyle, customPrompt, formattedProcessingTime, handleImageSelect, handleStyleChange, setCustomPrompt, handleTransformClick, handleEditImage, downloadImage}) {
     return (
         <div className="max-w-7xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -142,6 +142,7 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                             <div className="h-[400px]">
                                 <ImageResult 
                                     imageUrl={processedImageUrl} 
+                                    originalImageUrl={originalImageUrl}
                                     isLoading={false} 
                                     onDownload={downloadImage} 
                                     formattedProcessingTime={formattedProcessingTime}

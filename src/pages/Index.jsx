@@ -20,6 +20,7 @@ import Hero from "../components/sections/Hero";
 
 const Index = () => {
   const [selectedFile, setSelectedFile] = useState(null);
+  const [originalImageUrl, setOriginalImageUrl] = useState(null);
   const [selectedStyle, setSelectedStyle] = useState("ghibli");
   const [customPrompt, setCustomPrompt] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
@@ -86,6 +87,18 @@ const Index = () => {
 
   const handleImageSelect = useCallback((file) => {
     setSelectedFile(file);
+    
+    // Create URL for the original image to use in comparison
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setOriginalImageUrl(e.target.result);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setOriginalImageUrl(null);
+    }
+    
     setProcessedImageUrl(null);
     setCustomPrompt("");
 
@@ -337,7 +350,7 @@ const Index = () => {
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
           <HeroTittle />
           <div className="hero-section">
-            <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
+            <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
           </div>
           <HowTo />
           <Gallery onStyleSelect={handleStyleChange} />

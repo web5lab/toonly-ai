@@ -1,7 +1,8 @@
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Download, Image as ImageIcon } from "lucide-react";
+import { Download, Image as ImageIcon, ToggleLeft, ToggleRight } from "lucide-react";
 import { useState } from "react";
+import BeforeAfterSlider from "./BeforeAfterSlider";
 
 
 
@@ -9,10 +10,12 @@ export function ImageResult({
   imageUrl, 
   isLoading, 
   formattedProcessingTime,
+  originalImageUrl,
   className,
   onDownload 
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [showComparison, setShowComparison] = useState(false);
 
   if (isLoading) {
     return (
@@ -53,6 +56,42 @@ export function ImageResult({
     );
   }
 
+  // Show comparison view if both images are available and comparison is enabled
+  if (showComparison && originalImageUrl && imageUrl) {
+    return (
+      <div className={cn("relative overflow-hidden h-full bg-[#f4efe4]", className)}>
+        <BeforeAfterSlider 
+          beforeImage={originalImageUrl} 
+          afterImage={imageUrl}
+          className="w-full h-full"
+        />
+        
+        {/* Toggle Button */}
+        <Button
+          onClick={() => setShowComparison(false)}
+          className="absolute top-4 left-4 bg-[#8b5e3c]/90 hover:bg-[#6d4c30] text-white z-20"
+          variant="default"
+          size="sm"
+        >
+          <ToggleLeft className="h-4 w-4 mr-2" />
+          <span>Single View</span>
+        </Button>
+        
+        {/* Download Button */}
+        {onDownload && (
+          <Button
+            onClick={onDownload}
+            className="absolute bottom-4 right-4 bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow z-20"
+            variant="default"
+            size="sm"
+          >
+            <Download className="h-4 w-4 mr-2" />
+            <span>Download Result</span>
+          </Button>
+        )}
+      </div>
+    );
+  }
   return (
     <div className={cn("relative overflow-hidden h-full bg-[#f4efe4] flex justify-center items-center", className)}>
       <div className="relative h-auto max-w-full max-h-full">
@@ -70,16 +109,34 @@ export function ImageResult({
           )}
           onLoad={() => setIsImageLoaded(true)}
         />
-        {isImageLoaded && onDownload && (
-          <Button
-            onClick={onDownload}
-            className="absolute bottom-4 right-4 bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
-            variant="default"
-            size="sm"
-          >
-            <Download className="h-4 w-4 mr-2" />
-            <span>Download Result</span>
-          </Button>
+        {isImageLoaded && (
+          <div className="absolute bottom-4 right-4 flex gap-2">
+            {/* Compare Button - only show if original image is available */}
+            {originalImageUrl && (
+              <Button
+                onClick={() => setShowComparison(true)}
+                className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
+                variant="default"
+                size="sm"
+              >
+                <ToggleRight className="h-4 w-4 mr-2" />
+                <span>Compare</span>
+              </Button>
+            )}
+            
+            {/* Download Button */}
+            {onDownload && (
+              <Button
+                onClick={onDownload}
+                className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
+                variant="default"
+                size="sm"
+              >
+                <Download className="h-4 w-4 mr-2" />
+                <span>Download Result</span>
+              </Button>
+            )}
+          </div>
         )}
       </div>
     </div>

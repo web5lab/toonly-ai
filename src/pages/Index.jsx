@@ -18,6 +18,7 @@ import LoginModal from "../components/modals/LoginModal";
 import HeroTittle from "../components/sections/HeroTittle";
 import Hero from "../components/sections/Hero";
 import { SubmitStyleModal } from "../components/modals/SubmitStyleModal";
+import MobileApp from "../components/sections/MobileApp";
 
 
 const Index = () => {
@@ -395,6 +396,7 @@ const Index = () => {
           <HowTo />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
           <Testimonials />
+          <MobileApp />
           <Pricing />
           <Faq />
           <Footer />

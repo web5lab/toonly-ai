@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
+import { Plus } from "lucide-react";
 import { GALLERY_ITEMS } from '../../data/data';
 
 const ITEMS_PER_PAGE = 6; // Number of gallery items per page
-function Gallery({ onStyleSelect }) {
+function Gallery({ onStyleSelect, onSubmitStyle }) {
      const [currentPage, setCurrentPage] = useState(1); // State for current pagination page
     const totalPages = Math.ceil(GALLERY_ITEMS.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -30,7 +31,20 @@ function Gallery({ onStyleSelect }) {
 
     return (
         <section id="gallery-section" className="py-16 text-center mb-16">
-            <h2 className="text-3xl font-bold mb-8 text-white"><span className="text-4xl">See the Magic!</span> <br /> Choose from over 100 different styles!</h2>
+            <div className="flex flex-col items-center mb-8">
+                <h2 className="text-3xl font-bold mb-4 text-white">
+                    <span className="text-4xl">See the Magic!</span> <br /> 
+                    Choose from over 100 different styles!
+                </h2>
+                <Button
+                    onClick={onSubmitStyle}
+                    variant="outline"
+                    className="bg-yellow-500/20 border-yellow-400 text-yellow-300 hover:bg-yellow-500/30 hover:text-yellow-200 transition-colors"
+                >
+                    <Plus className="h-4 w-4 mr-2" />
+                    Submit New Style
+                </Button>
+            </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {currentGalleryItems.map((item) => (
                     <div

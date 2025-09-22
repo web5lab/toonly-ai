@@ -16,6 +16,7 @@ import Gallery from "../components/sections/Gallery";
 import LoginModal from "../components/modals/LoginModal";
 import HeroTittle from "../components/sections/HeroTittle";
 import Hero from "../components/sections/Hero";
+import { SubmitStyleModal } from "../components/modals/SubmitStyleModal";
 
 
 const Index = () => {
@@ -35,6 +36,7 @@ const Index = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+  const [isSubmitStyleModalOpen, setIsSubmitStyleModalOpen] = useState(false);
   const [sessionState, setSessionState] = useState({ data: null, isLoading: false, error: null });
 
   // --- Define fetchSession as useCallback ---
@@ -353,7 +355,7 @@ const Index = () => {
             <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
           </div>
           <HowTo />
-          <Gallery onStyleSelect={handleStyleChange} />
+          <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
           <Testimonials />
           <Pricing />
           <Faq />
@@ -364,6 +366,10 @@ const Index = () => {
           isOpen={isPricingModalOpen}
           onClose={() => setIsPricingModalOpen(false)}
           userId={userId}
+        />
+        <SubmitStyleModal
+          isOpen={isSubmitStyleModalOpen}
+          onClose={() => setIsSubmitStyleModalOpen(false)}
         />
 
       </div>

@@ -95,35 +95,78 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
 
                 {/* Right Column - Generated Image (Top) and Upload Form (Bottom) */}
                 <div className="space-y-6">
-                    {/* Generated Image - Top */}
-                    <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
-                        <div className="p-4 border-b border-[#a87b5d]/30">
-                            <h3 className="text-lg font-semibold text-[#5D4037]">Generated Image</h3>
+                    {/* Dynamic Content Based on State */}
+                    {!processedImageUrl && !isProcessing && !isEditing ? (
+                        /* Show Upload Form when no image is processed and not processing */
+                        <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                            <div className="p-4 border-b border-[#a87b5d]/30">
+                                <h3 className="text-lg font-semibold text-[#5D4037]">Upload Your Image</h3>
+                                <p className="text-sm text-[#8b5e3c] mt-1">Choose an image to transform with AI</p>
+                            </div>
+                            <div className="p-4">
+                                <ImageUpload 
+                                    onImageSelect={handleImageSelect} 
+                                    isUploading={false}
+                                    className="h-[400px]"
+                                />
+                            </div>
                         </div>
-                        <div className="h-[350px]">
-                            <ImageResult 
-                                imageUrl={processedImageUrl} 
-                                isLoading={isProcessing || isEditing} 
-                                onDownload={downloadImage} 
-                                formattedProcessingTime={formattedProcessingTime}
-                                className="h-full"
-                            />
+                    ) : (isProcessing || isEditing) ? (
+                        /* Show Processing State */
+                        <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                            <div className="p-4 border-b border-[#a87b5d]/30">
+                                <h3 className="text-lg font-semibold text-[#5D4037]">
+                                    {isProcessing ? 'Transforming Image...' : 'Editing Image...'}
+                                </h3>
+                                <p className="text-sm text-[#8b5e3c] mt-1">
+                                    AI is working its magic, please wait
+                                </p>
+                            </div>
+                            <div className="h-[400px]">
+                                <ImageResult 
+                                    imageUrl={null} 
+                                    isLoading={true} 
+                                    onDownload={null} 
+                                    formattedProcessingTime={formattedProcessingTime}
+                                    className="h-full"
+                                />
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        /* Show Generated Image Result */
+                        <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                            <div className="p-4 border-b border-[#a87b5d]/30">
+                                <h3 className="text-lg font-semibold text-[#5D4037]">Generated Result</h3>
+                                <p className="text-sm text-[#8b5e3c] mt-1">Your AI-transformed image is ready!</p>
+                            </div>
+                            <div className="h-[400px]">
+                                <ImageResult 
+                                    imageUrl={processedImageUrl} 
+                                    isLoading={false} 
+                                    onDownload={downloadImage} 
+                                    formattedProcessingTime={formattedProcessingTime}
+                                    className="h-full"
+                                />
+                            </div>
+                        </div>
+                    )}
 
-                    {/* Image Upload - Bottom */}
-                    <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
-                        <div className="p-4 border-b border-[#a87b5d]/30">
-                            <h3 className="text-lg font-semibold text-[#5D4037]">Upload Image</h3>
+                    {/* Upload New Image Button - Show when result is displayed */}
+                    {processedImageUrl && !isProcessing && !isEditing && (
+                        <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                            <div className="p-4 border-b border-[#a87b5d]/30">
+                                <h3 className="text-lg font-semibold text-[#5D4037]">Try Another Image</h3>
+                                <p className="text-sm text-[#8b5e3c] mt-1">Upload a new image to transform</p>
+                            </div>
+                            <div className="p-4">
+                                <ImageUpload 
+                                    onImageSelect={handleImageSelect} 
+                                    isUploading={false}
+                                    className="h-[200px]"
+                                />
+                            </div>
                         </div>
-                        <div className="p-4">
-                            <ImageUpload 
-                                onImageSelect={handleImageSelect} 
-                                isUploading={isProcessing || isEditing}
-                                className="h-[200px]"
-                            />
-                        </div>
-                    </div>
+                    )}
                 </div>
             </div>
         </div>

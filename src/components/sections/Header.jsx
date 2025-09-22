@@ -14,13 +14,30 @@ import { Avatar, AvatarFallback} from "@/components/ui/avatar";
 import { LogOut, User as UserIcon } from "lucide-react";
 import CountUp from "react-countup";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger, SheetClose } from "@/components/ui/sheet";
+import { HistoryModal } from "@/components/HistoryModal";
 
 const WIZARD_IMAGE_URL = "https://i.imgur.com/B7ptMnm.png";
 
 
 
-function Header({isAuthenticated,prevCreditsRef, userEmail,  credits, isLoadingCredits, isSessionLoading, triggerAuthModal, handleSignOut, setIsPricingModalOpen}) {
+function Header({
+  isAuthenticated,
+  prevCreditsRef, 
+  userEmail,  
+  credits, 
+  isLoadingCredits, 
+  isSessionLoading, 
+  triggerAuthModal, 
+  handleSignOut, 
+  setIsPricingModalOpen,
+  history,
+  onDeleteHistoryItem,
+  onClearAllHistory
+}) {
+  const [isHistoryModalOpen, setIsHistoryModalOpen] = React.useState(false);
+
   return (
+    <>
     <header className="sticky top-0 bg-[#a87b5d]/80 backdrop-blur-md z-10 playful-shadow">
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
       <div className="flex items-center gap-2 flex-shrink-0 mr-2">
@@ -87,6 +104,17 @@ function Header({isAuthenticated,prevCreditsRef, userEmail,  credits, isLoadingC
         {isSessionLoading && (
           <Loader2 className="h-5 w-5 text-white animate-spin" />
         )}
+
+        {/* History Button */}
+        <Button
+          onClick={() => setIsHistoryModalOpen(true)}
+          variant="ghost"
+          size="icon"
+          className="text-white hover:bg-white/20 transition-colors"
+        >
+          <History className="h-5 w-5" />
+          <span className="sr-only">View History</span>
+        </Button>
 
         {/* Buy Stars Button (Second) */}
         <button
@@ -168,6 +196,17 @@ function Header({isAuthenticated,prevCreditsRef, userEmail,  credits, isLoadingC
                 </Button>
               </SheetClose>
 
+              {/* History Button */}
+              <SheetClose asChild>
+                <Button
+                  onClick={() => setIsHistoryModalOpen(true)}
+                  variant="ghost"
+                  className="w-full justify-start gap-2 hover:bg-white/10 text-white"
+                >
+                  <History className="h-4 w-4" /> History
+                </Button>
+              </SheetClose>
+
               {/* Always show Credits */}
               <div className="flex items-center justify-between text-sm px-3 py-2 rounded-md bg-white/10">
                 <span className="flex items-center gap-2">
@@ -224,6 +263,16 @@ function Header({isAuthenticated,prevCreditsRef, userEmail,  credits, isLoadingC
       </div>
     </div>
   </header>
+
+      {/* History Modal */}
+      <HistoryModal
+        isOpen={isHistoryModalOpen}
+        onClose={() => setIsHistoryModalOpen(false)}
+        history={history}
+        onDeleteItem={onDeleteHistoryItem}
+        onClearAll={onClearAllHistory}
+      />
+    </>
   )
 }
 

@@ -1,9 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
+import { Shield, Lock } from 'lucide-react';
 
 function Footer() {
     return (
         <footer className="mt-16 pt-8 text-center text-sm text-[#f4efe4]/90 border-t border-[#f4efe4]/20 [text-shadow:1px_1px_1px_rgba(93,64,55,0.6)]">
+            {/* Privacy Notice */}
+            <div className="mb-6 p-4 bg-[#f4efe4]/10 backdrop-blur-sm rounded-lg border border-[#f4efe4]/20 max-w-2xl mx-auto">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                    <Shield className="h-5 w-5 text-green-400" />
+                    <h3 className="font-semibold text-[#f4efe4] text-base">Your Privacy is Protected</h3>
+                </div>
+                <div className="flex items-center justify-center gap-4 text-xs text-[#f4efe4]/80">
+                    <div className="flex items-center gap-1">
+                        <Lock className="h-3 w-3 text-green-400" />
+                        <span>Images stored locally only</span>
+                    </div>
+                    <span>•</span>
+                    <span>Never uploaded to our servers</span>
+                    <span>•</span>
+                    <span>Complete data control</span>
+                </div>
+            </div>
+
             <div className="flex flex-wrap items-center justify-center space-x-4 mb-4">
                 <Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link>
                 <span>•</span>

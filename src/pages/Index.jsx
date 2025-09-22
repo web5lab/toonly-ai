@@ -6,6 +6,7 @@ import { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { stylePrompts } from '@/lib/stylePrompts';
 import { fetchUserData } from "../services/userService";
+import { useImageHistory } from "@/hooks/useImageHistory";
 import Testimonials from "../components/sections/Testimonials";
 import Pricing from "../components/sections/Pricing";
 import Footer from "../components/sections/Footer";
@@ -38,6 +39,14 @@ const Index = () => {
   const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
   const [isSubmitStyleModalOpen, setIsSubmitStyleModalOpen] = useState(false);
   const [sessionState, setSessionState] = useState({ data: null, isLoading: false, error: null });
+
+  // History hook
+  const { 
+    history, 
+    addToHistory, 
+    deleteHistoryItem, 
+    clearAllHistory 
+  } = useImageHistory();
 
   // --- Define fetchSession as useCallback ---
   const fetchSession = useCallback(async (isMountedCheck = true) => {
@@ -156,6 +165,14 @@ const Index = () => {
       setProcessedImageUrl(editedImageUrl);
       toast.success("Image transformed successfully!");
       await refreshCredits();
+      
+      // Add to history
+      addToHistory({
+        originalImage: originalImageUrl,
+        processedImage: editedImageUrl,
+        style: selectedStyle,
+        customPrompt: null,
+      });
     } catch (error) {
       handleApiError(error);
     } finally {
@@ -207,6 +224,14 @@ const Index = () => {
       setProcessedImageUrl(editedImageUrl);
       toast.success("Image edited successfully!");
       await refreshCredits();
+      
+      // Add to history
+      addToHistory({
+        originalImage: originalImageUrl,
+        processedImage: editedImageUrl,
+        style: selectedStyle,
+        customPrompt: editPrompt,
+      });
     } catch (error) {
       handleApiError(error);
     } finally {
@@ -346,7 +371,20 @@ const Index = () => {
   return (
     <SkeletonTheme baseColor="#e0d8c7" highlightColor="#f4efe4">
       <div className="bg-[url('https://i.ibb.co/DDcDBgws/Chat-GPT-Image-Apr-3-2025-07-56-00-PM.png')] bg-cover bg-center min-h-screen w-full backdrop-blur-sm md:bg-fixed">
-        <Header prevCreditsRef={prevCreditsRef} isAuthenticated={isAuthenticated} userEmail={userEmail} credits={credits} isLoadingCredits={isLoadingCredits} isSessionLoading={isSessionLoading} triggerAuthModal={triggerAuthModal} handleSignOut={handleSignOut} setIsPricingModalOpen={setIsPricingModalOpen} />
+        <Header 
+          prevCreditsRef={prevCreditsRef} 
+          isAuthenticated={isAuthenticated} 
+          userEmail={userEmail} 
+          credits={credits} 
+          isLoadingCredits={isLoadingCredits} 
+          isSessionLoading={isSessionLoading} 
+          triggerAuthModal={triggerAuthModal} 
+          handleSignOut={handleSignOut} 
+          setIsPricingModalOpen={setIsPricingModalOpen}
+          history={history}
+          onDeleteHistoryItem={deleteHistoryItem}
+          onClearAllHistory={clearAllHistory}
+        />
 
         {/* Add overflow constraint to main content area */}
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">

@@ -103,14 +103,24 @@ export function HistoryModal({ isOpen, onClose, history, onDeleteItem, onClearAl
             <div className="space-y-3">
               <h3 className="text-lg font-semibold text-white">Original</h3>
               <div className="relative bg-[#5D4037]/20 rounded-lg overflow-hidden">
-                <img
-                  src={selectedItem.originalImage}
-                  alt="Original"
-                  className="w-full h-64 object-contain"
-                />
+                {selectedItem.originalImage ? (
+                  <img
+                    src={selectedItem.originalImage}
+                    alt="Original"
+                    className="w-full h-64 object-contain"
+                  />
+                ) : (
+                  <div className="w-full h-64 flex items-center justify-center text-[#e9e2d6]/60">
+                    <div className="text-center">
+                      <ImageIcon className="h-12 w-12 mx-auto mb-2 opacity-50" />
+                      <p className="text-sm">Original image not saved</p>
+                    </div>
+                  </div>
+                )}
                 <Button
                   onClick={() => downloadImage(selectedItem.originalImage, `original-${selectedItem.id}.png`)}
                   className="absolute bottom-2 right-2 bg-[#8b5e3c] hover:bg-[#6d4c30] text-white"
+                  disabled={!selectedItem.originalImage}
                   size="sm"
                 >
                   <Download className="h-4 w-4" />

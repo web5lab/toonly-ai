@@ -47,8 +47,7 @@ export const useImageHistory = () => {
     setHistory(prev => {
       // Remove duplicates and add new item at the beginning
       const filtered = prev.filter(h => 
-        h.originalImage !== item.originalImage || 
-        h.processedImage !== item.processedImage
+        !(h.originalImage === item.originalImage && h.processedImage === item.processedImage)
       );
       const newHistory = [historyItem, ...filtered];
       

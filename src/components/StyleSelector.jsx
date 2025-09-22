@@ -73,12 +73,12 @@ export function StyleSelector({
       {/* Style Mode Toggle */}
       <div className="space-y-2">
         <h3 className="font-medium text-lg text-[#5D4037]">Choose Style Method</h3>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Button
             type="button"
             variant="ghost"
             className={cn(
-              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10",
+              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10 min-h-[60px] sm:min-h-[70px]",
               !useCustomPrompt 
                 ? "!bg-[#a87b5d]/20 !border-[#8b5e3c] !text-[#5D4037] playful-shadow" 
                 : ""
@@ -87,15 +87,15 @@ export function StyleSelector({
             disabled={disabled}
           >
             <div className="flex flex-col">
-              <span className="font-medium">Predefined Styles</span>
-              <span className="text-xs opacity-70">Choose from our curated styles</span>
+              <span className="font-medium text-sm sm:text-base">Predefined Styles</span>
+              <span className="text-xs sm:text-sm opacity-70">Choose from our curated styles</span>
             </div>
           </Button>
           <Button
             type="button"
             variant="ghost"
             className={cn(
-              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10",
+              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10 min-h-[60px] sm:min-h-[70px]",
               useCustomPrompt 
                 ? "!bg-[#a87b5d]/20 !border-[#8b5e3c] !text-[#5D4037] playful-shadow" 
                 : ""
@@ -104,8 +104,8 @@ export function StyleSelector({
             disabled={disabled}
           >
             <div className="flex flex-col">
-              <span className="font-medium">Custom Prompt</span>
-              <span className="text-xs opacity-70">Write your own transformation</span>
+              <span className="font-medium text-sm sm:text-base">Custom Prompt</span>
+              <span className="text-xs sm:text-sm opacity-70">Write your own transformation</span>
             </div>
           </Button>
         </div>

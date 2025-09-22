@@ -1,8 +1,10 @@
 import { cn } from "@/lib/utils";
+import { dataURLtoBlob } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Download, Image as ImageIcon, ToggleLeft, ToggleRight } from "lucide-react";
+import { Download, Image as ImageIcon, ToggleLeft, ToggleRight, Share } from "lucide-react";
 import { useState } from "react";
 import BeforeAfterSlider from "./BeforeAfterSlider";
+import { toast } from "sonner";
 
 
 
@@ -16,7 +18,58 @@ export function ImageResult({
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [isSharing, setIsSharing] = useState(false);
 
+  const handleShareImage = async () => {
+    if (!imageUrl) {
+      toast.error("No image to share");
+      return;
+    }
+
+    // Check if Web Share API is supported
+    if (!navigator.share) {
+      toast.error("Sharing is not supported in your browser. Please download the image instead.");
+      return;
+    }
+
+    setIsSharing(true);
+
+    try {
+      // Convert data URL to Blob
+      const blob = await dataURLtoBlob(imageUrl);
+      
+      // Create a File object from the Blob
+      const file = new File([blob], `toonly-ai-transformed-${Date.now()}.png`, {
+        type: 'image/png',
+      });
+
+      // Check if the browser supports sharing files
+      if (navigator.canShare && !navigator.canShare({ files: [file] })) {
+        toast.error("Your browser doesn't support sharing images. Please download instead.");
+        return;
+      }
+
+      // Share the image
+      await navigator.share({
+        title: 'My Toonly AI Transformation',
+        text: 'Check out my AI-transformed image created with Toonly AI! 🎨✨',
+        files: [file],
+      });
+
+      toast.success("Image shared successfully!");
+    } catch (error) {
+      // User cancelled sharing or other error occurred
+      if (error.name === 'AbortError') {
+        // User cancelled, don't show error
+        console.log('User cancelled sharing');
+      } else {
+        console.error('Error sharing image:', error);
+        toast.error("Failed to share image. Please try downloading instead.");
+      }
+    } finally {
+      setIsSharing(false);
+    }
+  };
   if (isLoading) {
     return (
       <div 
@@ -89,6 +142,27 @@ export function ImageResult({
             <span>Download Result</span>
           </Button>
         )}
+        
+        {/* Share Button */}
+        <Button
+          onClick={handleShareImage}
+          disabled={isSharing}
+          className="absolute bottom-4 left-4 bg-blue-600 hover:bg-blue-700 text-white playful-shadow z-20"
+          variant="default"
+          size="sm"
+        >
+          {isSharing ? (
+            <>
+              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+              <span>Sharing...</span>
+            </>
+          ) : (
+            <>
+              <Share className="h-4 w-4 mr-2" />
+              <span>Share</span>
+            </>
+          )}
+        </Button>
       </div>
     );
   }
@@ -110,7 +184,7 @@ export function ImageResult({
           onLoad={() => setIsImageLoaded(true)}
         />
         {isImageLoaded && (
-          <div className="absolute bottom-4 right-4 flex gap-2">
+          <div className="absolute bottom-4 right-4 flex gap-2 flex-wrap">
             {/* Compare Button - only show if original image is available */}
             {originalImageUrl && (
               <Button
@@ -136,6 +210,27 @@ export function ImageResult({
                 <span>Download Result</span>
               </Button>
             )}
+            
+            {/* Share Button */}
+            <Button
+              onClick={handleShareImage}
+              disabled={isSharing}
+              className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
+              variant="default"
+              size="sm"
+            >
+              {isSharing ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  <span>Sharing...</span>
+                </>
+              ) : (
+                <>
+                  <Share className="h-4 w-4 mr-2" />
+                  <span>Share</span>
+                </>
+              )}
+            </Button>
           </div>
         )}
       </div>

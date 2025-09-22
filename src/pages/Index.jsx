@@ -395,7 +395,7 @@ const Index = () => {
           </div>
           <HowTo />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
-          <Testimonials />
+          {/* <Testimonials /> */}
           <MobileApp />
           <Pricing />
           <Faq />

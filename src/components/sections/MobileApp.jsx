@@ -178,22 +178,8 @@ function MobileApp() {
                                         </div>
                                     </div>
                                 </div>
-                                
                                 {/* Home Indicator */}
                                 <div className="absolute bottom-3 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-white/40 rounded-full"></div>
-                            </div>
-                            
-                            {/* Floating Elements */}
-                            <div className="absolute -top-6 -right-6 w-12 h-12 bg-gradient-to-br from-yellow-400 to-orange-400 rounded-full flex items-center justify-center animate-bounce shadow-lg playful-shadow">
-                                <Sparkles className="h-6 w-6 text-[#3a2e23]" />
-                            </div>
-                            <div className="absolute -bottom-6 -left-6 w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full animate-pulse shadow-lg flex items-center justify-center">
-                                <Heart className="h-5 w-5 text-white" />
-                            </div>
-                            <div className="absolute top-1/3 -left-4 w-6 h-6 bg-gradient-to-br from-green-400 to-teal-400 rounded-full animate-bounce delay-700 shadow-md">
-                            </div>
-                            <div className="absolute top-2/3 -right-3 w-8 h-8 bg-gradient-to-br from-pink-400 to-red-400 rounded-full animate-pulse delay-1000 shadow-md flex items-center justify-center">
-                                <Star className="h-4 w-4 text-white" />
                             </div>
                         </div>
                     </div>

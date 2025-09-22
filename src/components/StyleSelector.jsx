@@ -52,6 +52,21 @@ export function StyleSelector({
       onChange(null);
     }
   };
+
+  // Effect to handle external style selection (from gallery)
+  React.useEffect(() => {
+    if (selectedStyle && !useCustomPrompt) {
+      // Find which category contains this style
+      const categoryWithStyle = CATEGORY_OPTIONS.find(cat => 
+        cat.styles.some(style => style.id === selectedStyle)
+      );
+      
+      if (categoryWithStyle && categoryWithStyle.id !== selectedCategory) {
+        setSelectedCategory(categoryWithStyle.id);
+      }
+    }
+  }, [selectedStyle, useCustomPrompt, selectedCategory]);
+
   return (
     <div className={cn("w-full space-y-3", className)}>
       {/* Style Mode Toggle */}

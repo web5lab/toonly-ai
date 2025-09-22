@@ -4,12 +4,30 @@ import { Pagination, PaginationContent, PaginationItem, PaginationLink, Paginati
 import { GALLERY_ITEMS } from '../../data/data';
 
 const ITEMS_PER_PAGE = 6; // Number of gallery items per page
-function Gallery() {
+function Gallery({ onStyleSelect }) {
      const [currentPage, setCurrentPage] = useState(1); // State for current pagination page
     const totalPages = Math.ceil(GALLERY_ITEMS.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
     const currentGalleryItems = GALLERY_ITEMS.slice(startIndex, endIndex);
+
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
+
+    const handleStyleSelect = (styleId) => {
+        if (onStyleSelect) {
+            onStyleSelect(styleId);
+            // Scroll to the style selector for better UX
+            const heroSection = document.querySelector('.hero-section');
+            if (heroSection) {
+                heroSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
         <section id="gallery-section" className="py-16 text-center mb-16">
             <h2 className="text-3xl font-bold mb-8 text-white"><span className="text-4xl">See the Magic!</span> <br /> Choose from over 100 different styles!</h2>
@@ -28,7 +46,7 @@ function Gallery() {
                             <Button
                                 variant="secondary"
                                 className="w-full bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
-                                onClick={() => setSelectedStyle(item.styleId)}
+                                onClick={() => handleStyleSelect(item.styleId)}
                             >
                                 Use This Style
                             </Button>

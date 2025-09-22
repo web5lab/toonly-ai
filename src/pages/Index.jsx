@@ -336,9 +336,11 @@ const Index = () => {
         {/* Add overflow constraint to main content area */}
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
           <HeroTittle />
-          <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
+          <div className="hero-section">
+            <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
+          </div>
           <HowTo />
-          <Gallery />
+          <Gallery onStyleSelect={handleStyleChange} />
           <Testimonials />
           <Pricing />
           <Faq />

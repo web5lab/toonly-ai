@@ -9,11 +9,10 @@ import { Label } from "@/components/ui/label";
 
 function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processedImageUrl, selectedStyle, customPrompt, formattedProcessingTime, handleImageSelect, handleStyleChange, setCustomPrompt, handleTransformClick, handleEditImage, downloadImage}) {
     return (
-        <div className="sm:max-w-xl md:max-w-3xl lg:max-w-5xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:divide-x md:divide-[#8b5e3c]/30 min-h-[500px] sm:min-h-[600px]">
-                <div className="space-y-6 md:pr-6">
-                    <ImageUpload onImageSelect={handleImageSelect} isUploading={isProcessing || isEditing} />
-
+        <div className="max-w-7xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Left Column - Style Selection and Customization */}
+                <div className="space-y-6">
                     {/* --- Edit Transformation Area (Subscribers Only) --- */}
                     {isAuthenticated && isSubscribed && (
                         <div className={`space-y-2 p-4 bg-white/30 rounded-lg border border-[#a87b5d]/40 shadow-inner transition-opacity duration-300 ${processedImageUrl ? 'opacity-100' : 'opacity-50'}`}>
@@ -31,8 +30,8 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                             />
                         </div>
                     )}
-                    {/* --- End Edit Transformation Area --- */}
 
+                    {/* Style Selection */}
                     <StyleSelector
                         selectedStyle={selectedStyle}
                         onChange={handleStyleChange}
@@ -41,6 +40,7 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                         disabled={isProcessing || isEditing || (isAuthenticated && isSubscribed && !!processedImageUrl)}
                     />
 
+                    {/* Action Buttons */}
                     <div className="flex flex-col sm:flex-row gap-3">
                         <Button
                             onClick={handleTransformClick}
@@ -65,7 +65,7 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                             )}
                         </Button>
 
-                        {/* New Edit Button (Subscribers Only, after transform) */}
+                        {/* Edit Button (Subscribers Only, after transform) */}
                         {isAuthenticated && isSubscribed && (
                             <Button
                                 onClick={handleEditImage}
@@ -91,17 +91,38 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                             </Button>
                         )}
                     </div>
-
-                    <div className="md:hidden">
-                        {/* Pass combined loading state */}
-                        <ImageResult imageUrl={processedImageUrl} isLoading={isProcessing || isEditing} onDownload={downloadImage} formattedProcessingTime={formattedProcessingTime} />
-                    </div>
                 </div>
 
-                <div className="md:pl-6 flex items-center justify-center h-full">
-                    <div className="hidden md:block w-full h-full stitch-border rounded-xl overflow-hidden bg-[#f4efe4]">
-                        {/* Pass combined loading state */}
-                        <ImageResult imageUrl={processedImageUrl} isLoading={isProcessing || isEditing} onDownload={downloadImage} formattedProcessingTime={formattedProcessingTime} />
+                {/* Right Column - Generated Image (Top) and Upload Form (Bottom) */}
+                <div className="space-y-6">
+                    {/* Generated Image - Top */}
+                    <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                        <div className="p-4 border-b border-[#a87b5d]/30">
+                            <h3 className="text-lg font-semibold text-[#5D4037]">Generated Image</h3>
+                        </div>
+                        <div className="h-[350px]">
+                            <ImageResult 
+                                imageUrl={processedImageUrl} 
+                                isLoading={isProcessing || isEditing} 
+                                onDownload={downloadImage} 
+                                formattedProcessingTime={formattedProcessingTime}
+                                className="h-full"
+                            />
+                        </div>
+                    </div>
+
+                    {/* Image Upload - Bottom */}
+                    <div className="bg-[#f4efe4]/80 backdrop-blur-sm rounded-xl playful-shadow playful-border overflow-hidden">
+                        <div className="p-4 border-b border-[#a87b5d]/30">
+                            <h3 className="text-lg font-semibold text-[#5D4037]">Upload Image</h3>
+                        </div>
+                        <div className="p-4">
+                            <ImageUpload 
+                                onImageSelect={handleImageSelect} 
+                                isUploading={isProcessing || isEditing}
+                                className="h-[200px]"
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

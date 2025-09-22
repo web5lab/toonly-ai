@@ -9,7 +9,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { 
-  History, 
+  Clock, 
   Download, 
   Trash2, 
   Calendar, 
@@ -177,7 +177,7 @@ export function HistoryModal({ isOpen, onClose, history, onDeleteItem, onClearAl
       <DialogContent className="max-w-4xl bg-[#3a2e23] border-[#5D4037] text-[#e9e2d6] max-h-[90vh] overflow-hidden">
         <DialogHeader className="pb-4">
           <DialogTitle className="text-2xl font-bold text-white flex items-center gap-2">
-            <History className="h-6 w-6 text-yellow-400" />
+            <Clock className="h-6 w-6 text-yellow-400" />
             Transformation History
           </DialogTitle>
           <DialogDescription className="text-[#e9e2d6]/80">

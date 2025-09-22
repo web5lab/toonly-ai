@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
-import { Loader2,  Star,  Menu } from "lucide-react";
+import { Loader2, Star, Menu, Clock } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   DropdownMenu,
@@ -112,7 +112,7 @@ function Header({
           size="icon"
           className="text-white hover:bg-white/20 transition-colors"
         >
-          <History className="h-5 w-5" />
+          <Clock className="h-5 w-5" />
           <span className="sr-only">View History</span>
         </Button>
 
@@ -203,7 +203,7 @@ function Header({
                   variant="ghost"
                   className="w-full justify-start gap-2 hover:bg-white/10 text-white"
                 >
-                  <History className="h-4 w-4" /> History
+                  <Clock className="h-4 w-4" /> History
                 </Button>
               </SheetClose>
 

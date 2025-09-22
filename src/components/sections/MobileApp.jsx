@@ -91,7 +91,6 @@ function MobileApp() {
                                 <span className="font-medium">Want early access? Sign up to be notified when we launch!</span>
                             </p>
                         </div>
-                        </p>
                     </div>
 
                     {/* Right side - Phone Mockup */}

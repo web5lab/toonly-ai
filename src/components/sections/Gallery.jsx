@@ -39,7 +39,7 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                 <Button
                     onClick={onSubmitStyle}
                     variant="outline"
-                    className="bg-yellow-500/20 border-yellow-400 text-yellow-300 hover:bg-yellow-500/30 hover:text-yellow-200 transition-colors"
+                    className="bg-[#8b5e3c]/20 border-[#8b5e3c] text-[#8b5e3c] hover:bg-[#8b5e3c]/30 hover:text-[#6d4c30] transition-colors"
                 >
                     <Plus className="h-4 w-4 mr-2" />
                     Submit New Style

@@ -32,7 +32,7 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
     return (
         <section id="gallery-section" className="py-16 text-center mb-16">
             <div className="flex flex-col items-center mb-8">
-                <h2 className="text-3xl font-bold mb-4 text-white">
+                <h2 className="text-3xl font-bold mb-4 text-white [text-shadow:1px_1px_2px_rgba(93,64,55,0.7)]">
                     <span className="text-4xl">AI Image Transformation Gallery</span> <br /> 
                     100+ Free Cartoon & Anime Styles - See the Magic!
                 </h2>

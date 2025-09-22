@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import {
   Select,
@@ -15,10 +17,13 @@ import { CATEGORY_OPTIONS } from "@/lib/categoryOptions";
 export function StyleSelector({ 
   selectedStyle, 
   onChange, 
+  customPrompt,
+  onCustomPromptChange,
   className,
   disabled = false
 }) {
   const [selectedCategory, setSelectedCategory] = useState("anime");
+  const [useCustomPrompt, setUseCustomPrompt] = useState(false);
   
   const currentCategory = CATEGORY_OPTIONS.find(cat => cat.id === selectedCategory) || CATEGORY_OPTIONS[0];
   const availableStyles = currentCategory.styles;
@@ -34,8 +39,84 @@ export function StyleSelector({
     }
   };
 
+  const handleStyleModeChange = (isCustom) => {
+    setUseCustomPrompt(isCustom);
+    if (!isCustom) {
+      // Reset to first available style when switching back to predefined
+      const firstAvailableStyle = currentCategory.styles.find(style => !style.disabled && !style.comingSoon);
+      if (firstAvailableStyle) {
+        onChange(firstAvailableStyle.id);
+      }
+    } else {
+      // Clear selected style when switching to custom
+      onChange(null);
+    }
+  };
   return (
     <div className={cn("w-full space-y-3", className)}>
+      {/* Style Mode Toggle */}
+      <div className="space-y-2">
+        <h3 className="font-medium text-lg text-[#5D4037]">Choose Style Method</h3>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="ghost"
+            className={cn(
+              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10",
+              !useCustomPrompt 
+                ? "!bg-[#a87b5d]/20 !border-[#8b5e3c] !text-[#5D4037] playful-shadow" 
+                : ""
+            )}
+            onClick={() => handleStyleModeChange(false)}
+            disabled={disabled}
+          >
+            <div className="flex flex-col">
+              <span className="font-medium">Predefined Styles</span>
+              <span className="text-xs opacity-70">Choose from our curated styles</span>
+            </div>
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            className={cn(
+              "flex-1 h-auto p-3 text-left rounded-lg border border-[#a87b5d] text-[#8b5e3c] hover:border-[#8b5e3c] hover:bg-[#a87b5d]/10",
+              useCustomPrompt 
+                ? "!bg-[#a87b5d]/20 !border-[#8b5e3c] !text-[#5D4037] playful-shadow" 
+                : ""
+            )}
+            onClick={() => handleStyleModeChange(true)}
+            disabled={disabled}
+          >
+            <div className="flex flex-col">
+              <span className="font-medium">Custom Prompt</span>
+              <span className="text-xs opacity-70">Write your own transformation</span>
+            </div>
+          </Button>
+        </div>
+      </div>
+
+      {useCustomPrompt ? (
+        /* Custom Prompt Input */
+        <div className="space-y-2">
+          <Label htmlFor="custom-prompt" className="font-medium text-lg text-[#5D4037]">
+            Custom Style Prompt
+          </Label>
+          <Input
+            id="custom-prompt"
+            type="text"
+            placeholder="e.g., Turn this into a watercolor painting with soft brushstrokes..."
+            value={customPrompt || ""}
+            onChange={(e) => onCustomPromptChange(e.target.value)}
+            disabled={disabled}
+            className="border-[#a87b5d] bg-[#f4efe4] text-[#5D4037] placeholder:text-[#8b5e3c]/60 focus:border-[#8b5e3c] focus:ring-0"
+          />
+          <p className="text-xs text-[#8b5e3c]/70">
+            Describe how you want your image to be transformed. Be specific for better results!
+          </p>
+        </div>
+      ) : (
+        /* Predefined Styles */
+        <>
       <div className="space-y-2">
         <h3 className="font-medium text-lg text-[#5D4037]">Select Category</h3>
         <Select 
@@ -87,6 +168,8 @@ export function StyleSelector({
           ))}
         </div>
       </div>
+        </>
+      )}
     </div>
   );
 }

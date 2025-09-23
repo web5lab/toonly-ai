@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star as StarIcon } from "lucide-react";
 
-function Pricing() {
+function Pricing({ userId, isAuthenticated, triggerAuthModal }) {
   return (
     <section id="pricing" className="py-16 bg-[#f4efe4]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border mb-16 text-[#3a2e23]">
     <div className="container max-w-4xl mx-auto">
@@ -37,7 +37,7 @@ function Pricing() {
               <Button
                 className="w-full mt-auto bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
                 onClick={() => {
-                  if (userId && isAuthenticated) {
+                  if (userId) {
                     const amountToCredit = 50;
                     const paymentUrl = `https://checkout.dodopayments.com/buy/pdt_o2dgAidb4HRvBPRhiPIkM?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}&metadata_credit_amount=${amountToCredit}`;
                     console.log(`[Payment] Redirecting (50 credits) to: ${paymentUrl}`);
@@ -64,7 +64,7 @@ function Pricing() {
               <Button
                 className="w-full mt-auto bg-yellow-500 hover:bg-yellow-600 text-[#3a2e23] playful-shadow font-semibold"
                 onClick={() => {
-                  if (userId && isAuthenticated) {
+                  if (userId) {
                     const amountToCredit = 120;
                     const paymentUrl = `https://checkout.dodopayments.com/buy/pdt_hVW4yq6XK4OVtdfqKEX4b?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}&metadata_credit_amount=${amountToCredit}`;
                     console.log(`[Payment] Redirecting (120 credits) to: ${paymentUrl}`);
@@ -124,7 +124,7 @@ function Pricing() {
             <Button
               className="w-full max-w-xs mt-4 bg-yellow-500 hover:bg-yellow-600 text-[#3a2e23] playful-shadow font-semibold text-lg py-3"
               onClick={() => {
-                if (userId && isAuthenticated) {
+                if (userId) {
                   const amountToCredit = 0;
                   const paymentUrl = `https://checkout.dodopayments.com/buy/pdt_3NqIyERjd8icANIGDBrKJ?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}&metadata_credit_amount=${amountToCredit}`;
                   console.log(`[Payment] Redirecting (Subscription) to: ${paymentUrl}`);

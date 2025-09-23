@@ -42,11 +42,11 @@ const Index = () => {
   const [sessionState, setSessionState] = useState({ data: null, isLoading: false, error: null });
 
   // History hook
-  const { 
-    history, 
-    addToHistory, 
-    deleteHistoryItem, 
-    clearAllHistory 
+  const {
+    history,
+    addToHistory,
+    deleteHistoryItem,
+    clearAllHistory
   } = useImageHistory();
 
   // --- Define fetchSession as useCallback ---
@@ -55,7 +55,6 @@ const Index = () => {
     try {
       const token = localStorage.getItem("authToken");
       if (token) {
-        console.log("user token", token);
         setSessionState(prevState => ({ ...prevState, isLoading: true, error: null }));
         const userData = await fetchUserData(token);
         prevCreditsRef.current = credits;
@@ -99,7 +98,7 @@ const Index = () => {
 
   const handleImageSelect = useCallback((file) => {
     setSelectedFile(file);
-    
+
     // Create URL for the original image to use in comparison
     if (file) {
       const reader = new FileReader();
@@ -110,7 +109,7 @@ const Index = () => {
     } else {
       setOriginalImageUrl(null);
     }
-    
+
     setProcessedImageUrl(null);
     setCustomPrompt("");
 
@@ -166,7 +165,7 @@ const Index = () => {
       setProcessedImageUrl(editedImageUrl);
       toast.success("Image transformed successfully!");
       await refreshCredits();
-      
+
       // Add to history
       addToHistory({
         originalImage: originalImageUrl,
@@ -225,7 +224,7 @@ const Index = () => {
       setProcessedImageUrl(editedImageUrl);
       toast.success("Image edited successfully!");
       await refreshCredits();
-      
+
       // Add to history
       addToHistory({
         originalImage: originalImageUrl,
@@ -372,15 +371,15 @@ const Index = () => {
   return (
     <SkeletonTheme baseColor="#e0d8c7" highlightColor="#f4efe4">
       <div className="bg-[url('https://i.ibb.co/DDcDBgws/Chat-GPT-Image-Apr-3-2025-07-56-00-PM.png')] bg-cover bg-center min-h-screen w-full backdrop-blur-sm md:bg-fixed">
-        <Header 
-          prevCreditsRef={prevCreditsRef} 
-          isAuthenticated={isAuthenticated} 
-          userEmail={userEmail} 
-          credits={credits} 
-          isLoadingCredits={isLoadingCredits} 
-          isSessionLoading={isSessionLoading} 
-          triggerAuthModal={triggerAuthModal} 
-          handleSignOut={handleSignOut} 
+        <Header
+          prevCreditsRef={prevCreditsRef}
+          isAuthenticated={isAuthenticated}
+          userEmail={userEmail}
+          credits={credits}
+          isLoadingCredits={isLoadingCredits}
+          isSessionLoading={isSessionLoading}
+          triggerAuthModal={triggerAuthModal}
+          handleSignOut={handleSignOut}
           setIsPricingModalOpen={setIsPricingModalOpen}
           history={history}
           onDeleteHistoryItem={deleteHistoryItem}
@@ -397,7 +396,7 @@ const Index = () => {
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
           {/* <Testimonials /> */}
           <MobileApp />
-          <Pricing />
+          <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} />
           <Faq />
           <Footer />
         </main>

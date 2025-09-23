@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Star as StarIcon } from "lucide-react";
 
-function Pricing({ userId, isAuthenticated, triggerAuthModal }) {
+function Pricing({ userId, isAuthenticated, triggerAuthModal, setIsPricingModalOpen }) {
   return (
     <section id="pricing" className="py-16 bg-[#f4efe4]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border mb-16 text-[#3a2e23]">
     <div className="container max-w-5xl mx-auto">
@@ -83,12 +83,9 @@ function Pricing({ userId, isAuthenticated, triggerAuthModal }) {
             className="w-full mt-auto bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
             onClick={() => {
               if (userId) {
-                // Update with new starter plan product ID when available
-                const paymentUrl = `https://checkout.dodopayments.com/buy/STARTER_PLAN_ID?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}`;
-                console.log(`[Payment] Redirecting (Starter Plan) to: ${paymentUrl}`);
-                window.location.href = paymentUrl;
+                // Open pricing modal for subscription
+                setIsPricingModalOpen(true);
               } else {
-                console.log("[Payment] User not authenticated for Starter Plan. Triggering auth modal.");
                 triggerAuthModal();
               }
             }}
@@ -127,12 +124,9 @@ function Pricing({ userId, isAuthenticated, triggerAuthModal }) {
             className="w-full mt-auto bg-yellow-500 hover:bg-yellow-600 text-[#3a2e23] playful-shadow font-semibold"
             onClick={() => {
               if (userId) {
-                // Update with new pro plan product ID when available
-                const paymentUrl = `https://checkout.dodopayments.com/buy/PRO_PLAN_ID?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}`;
-                console.log(`[Payment] Redirecting (Pro Plan) to: ${paymentUrl}`);
-                window.location.href = paymentUrl;
+                // Open pricing modal for subscription
+                setIsPricingModalOpen(true);
               } else {
-                console.log("[Payment] User not authenticated for Pro Plan. Triggering auth modal.");
                 triggerAuthModal();
               }
             }}

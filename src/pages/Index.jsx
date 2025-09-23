@@ -397,6 +397,7 @@ const Index = () => {
           {/* <Testimonials /> */}
           <MobileApp />
           <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} />
+          <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={setIsPricingModalOpen} />
           <Faq />
           <Footer />
         </main>

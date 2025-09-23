@@ -48,6 +48,16 @@ export const stylePrompts = {
   avatarFireNation: "Turn this into the Avatar: The Last Airbender Fire Nation style",
   avatarEarthKingdom: "Turn this into the Avatar: The Last Airbender Earth Kingdom style",
   rubberHoseCartoon: "Turn this into the 30s rubber hose cartoon style",
+  doraemon: "Turn this into the Doraemon cartoon style with the characteristic round shapes and bright colors",
+  ben10: "Turn this into the Ben 10 cartoon style with the distinctive animation and character design",
+  tomAndJerry: "Turn this into the Tom and Jerry cartoon style with classic animation look",
+  scoobyDoo: "Turn this into the Scooby-Doo cartoon style with the retro animation aesthetic",
+  pokemonAnime: "Turn this into the Pokémon anime style with the characteristic bright colors and animation",
+  spongebob: "Turn this into the SpongeBob SquarePants cartoon style with the underwater cartoon aesthetic",
+  adventureTime: "Turn this into the Adventure Time cartoon style with the unique geometric character design",
+  regularShow: "Turn this into the Regular Show cartoon style with the distinctive animation look",
+  gravityFalls: "Turn this into the Gravity Falls cartoon style with the mystery cartoon aesthetic",
+  stevenUniverse: "Turn this into the Steven Universe cartoon style with the gem-inspired character design",
   
   // Toys
   lego: `Make this look like its a lego, in the 3D plasticy lego style,

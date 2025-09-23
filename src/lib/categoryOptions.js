@@ -79,6 +79,46 @@ export const CATEGORY_OPTIONS= [
         id: "rubberHoseCartoon",
         name: "30s Rubber Hose Cartoon",
       },
+      {
+        id: "doraemon",
+        name: "Doraemon",
+      },
+      {
+        id: "ben10",
+        name: "Ben 10",
+      },
+      {
+        id: "tomAndJerry",
+        name: "Tom and Jerry",
+      },
+      {
+        id: "scoobyDoo",
+        name: "Scooby-Doo",
+      },
+      {
+        id: "pokemonAnime",
+        name: "Pokémon",
+      },
+      {
+        id: "spongebob",
+        name: "SpongeBob",
+      },
+      {
+        id: "adventureTime",
+        name: "Adventure Time",
+      },
+      {
+        id: "regularShow",
+        name: "Regular Show",
+      },
+      {
+        id: "gravityFalls",
+        name: "Gravity Falls",
+      },
+      {
+        id: "stevenUniverse",
+        name: "Steven Universe",
+      },
     ],
   },
   // Art

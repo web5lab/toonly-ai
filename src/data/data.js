@@ -18,4 +18,10 @@ export const GALLERY_ITEMS = [
     { id: 'example16', src: '/images/examples04.png', styleId: 'cyberpunk' },
     { id: 'example17', src: '/images/examples05.png', styleId: 'superhero' },
     { id: 'example18', src: '/images/examples06.png', styleId: 'minecraft' },
+    { id: 'example19', src: '/images/examples01.png', styleId: 'doraemon' },
+    { id: 'example20', src: '/images/examples02.png', styleId: 'ben10' },
+    { id: 'example21', src: '/images/examples03.png', styleId: 'tomAndJerry' },
+    { id: 'example22', src: '/images/examples04.png', styleId: 'pokemonAnime' },
+    { id: 'example23', src: '/images/examples05.png', styleId: 'spongebob' },
+    { id: 'example24', src: '/images/examples06.png', styleId: 'adventureTime' },
   ];

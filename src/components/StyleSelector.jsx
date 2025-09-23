@@ -48,6 +48,8 @@ export function StyleSelector({
       if (firstAvailableStyle) {
         onChange(firstAvailableStyle.id);
       }
+      // Clear custom prompt when switching to predefined styles
+      onCustomPromptChange("");
     } else {
       // Clear selected style when switching to custom
       onChange(null);

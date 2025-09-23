@@ -267,7 +267,7 @@ const Index = () => {
     }
     if (credits < 10) {
       toast.error("Not enough credits to transform.");
-      setIsPricingModalOpen(true);
+      dispatch(setPricingModalOpen(true));
       return;
     }
     if (isProcessing || isEditing) {
@@ -275,9 +275,21 @@ const Index = () => {
       return;
     }
 
-    // Call processImage. The timer reset logic is now handled explicitly *inside* processImage.
+    // Determine which prompt to use: custom prompt or predefined style
+    let promptToUse;
+    if (customPrompt && customPrompt.trim()) {
+      // Use custom prompt if provided
+      promptToUse = customPrompt.trim();
+    } else if (selectedStyle && stylePrompts[selectedStyle]) {
+      // Use predefined style prompt
+      promptToUse = stylePrompts[selectedStyle];
+    } else {
+      toast.error("Please select a style or enter a custom prompt.");
+      return;
+    }
+
     console.log("[Transform Click] Triggering image processing...");
-    processImage(stylePrompts[selectedStyle]);
+    processImage(promptToUse);
   };
 
   const downloadImage = useCallback(() => {

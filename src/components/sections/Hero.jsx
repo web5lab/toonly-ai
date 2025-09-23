@@ -31,7 +31,7 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
                                 value={customPrompt}
                                 onChange={(e) => dispatch(setCustomPrompt(e.target.value))}
                                 disabled={!processedImageUrl || isProcessing || isEditing}
-                                className="bg-white/80 border-[#a87b5d]/60 text-[#3a2e23] placeholder:text-[#5D4037]/70 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8b5e3c] focus-visible:ring-offset-0 min-h-[80px] resize-none disabled:cursor-not-allowed disabled:bg-opacity-60"
+                                className="bg-white/80 border-[#a87b5d]/60 text-[#3a2e23] placeholder:text-[#5D4037]/70 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8b5e3c] focus-visible:ring-offset-0 min-h-[80px] resize-none disabled:cursor-not-allowed disabled:opacity-60"
                             />
                         </div>
                     )}
@@ -42,7 +42,7 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
                         onChange={handleStyleChange}
                         customPrompt={customPrompt}
                         onCustomPromptChange={(value) => dispatch(setCustomPrompt(value))}
-                        disabled={isProcessing || isEditing || (isAuthenticated && isSubscribed && !!processedImageUrl)}
+                        disabled={isProcessing || isEditing}
                     />
 
                     {/* Action Buttons */}

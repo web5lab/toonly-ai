@@ -400,7 +400,6 @@ const Index = () => {
             <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
           </div>
           <HowTo />
-          <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           {/* <Testimonials /> */}
           <MobileApp />

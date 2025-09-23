@@ -28,79 +28,91 @@ const PrivacyPolicy = () => {
 
         <div className="bg-[#f4efe4]/80 backdrop-blur-sm p-8 rounded-lg playful-shadow playful-border space-y-6">
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Introduction</h2>
+            <p className="text-sm text-center text-[#8b5e3c] mb-6">Last Updated: {new Date().toLocaleDateString()}</p>
+            
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">1. Data We Collect</h2>
             <p>
-              Welcome to ToonlyAI! We are committed to protecting your personal information and your right to privacy.
-              If you have any questions or concerns about this privacy notice, or our practices with regards to your
-              personal information, please contact us at bhyte.llc@gmail.com.
+              ToonlyAI does not collect or store any personal data beyond what's necessary for account management. All your image data is processed temporarily and stored locally on your device. Specifically, the app may temporarily process image data solely for the purpose of generating AI transformations. Image data is not stored or retained on our servers after the transformation process is complete.
             </p>
             <p className="mt-2">
-              This privacy notice describes how we might use your information if you visit our website at https://toonlyai.com
-              or use our services.
+              The images you upload and prompts you enter are deleted from our servers as soon as the image transformation is completed. If you do not download the transformed image, it will be lost when you exit the app.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Information We Collect</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">2. Image Data Processing</h2>
             <p>
-              We primarily process information that you provide directly to us when you use our service.
+              We do not retain any image data. The images uploaded by users are temporarily processed to generate AI transformations and are deleted immediately after processing. The data is not stored, retained, or shared with any third-party for marketing or any other purposes.
             </p>
-             <p className="mt-2">
-              The information we process consists of the images you upload for transformation. We do not collect personal information like names or email addresses through the core image transformation service.
-            </p>
-             <p className="mt-2">
-              We automatically collect certain information when you visit, use or navigate the Website. This information does
-              not reveal your specific identity (like your name or contact information) but may include device and usage
-              information, such as your IP address, browser and device characteristics, operating system, language preferences,
-              referring URLs, device name, country, location, information about how and when you use our Website and other
-              technical information. This data is used for analytics and service operation.
+            <p className="mt-2">
+              All image processing happens in real-time, and no copies of your original or transformed images are kept on our servers beyond the time necessary to complete the transformation and deliver the result to you.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">How We Use Your Information</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">3. Third-Party Services</h2>
             <p>
-              We use the information collected or processed via our Website for a variety of business purposes described below.
-              Primarily, we use it to provide and manage the ToonlyAI image transformation service, respond to user inquiries via the provided contact email, and improve the service.
+              The app uses third-party AI processing services (such as xAI, OpenAI) to generate image transformations. These services may temporarily process the images you upload for the purpose of generating AI transformations. These services do not retain or store image data beyond the necessary time required for processing.
             </p>
-             <p className="mt-2">
-              Specifically regarding uploaded images: Images uploaded are sent to our AI processing partners (xAI, OpenAI) solely to create the transformed version requested by the user. Neither the original uploaded image nor the generated image is stored on our servers after the transformation process is complete. We do not use your images for training our AI models or for any other purpose. Please refer to the privacy policies of xAI and OpenAI for details on their data handling during processing.
-            </p>
-          </section>
-
-           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Sharing Your Information</h2>
-            <p>
-             We share the uploaded image data with our third-party AI service providers (xAI, OpenAI) only as necessary to perform the image transformation service you request. We do not share any other personal information, as none is collected through the service itself. We may disclose information if required by law.
+            <p className="mt-2">
+              We have agreements with these third-party services to ensure they follow the same data protection standards and do not use your data for any purpose other than providing the transformation service.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Data Retention</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">4. Data Security</h2>
             <p>
-              We do not retain uploaded or generated images after processing is complete. No other personal data is collected or retained through the core service. Technical log data may be retained for a limited period for operational purposes.
+              We do not store or retain any personal image data on our servers. All personal data remains secure on your device. The transformation process uses encrypted connections and secure processing environments.
+            </p>
+            <p className="mt-2">
+              If you choose not to download the generated transformation, the data will be automatically deleted from our temporary processing systems within minutes of completion.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Your Privacy Rights</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">5. No Sharing with Third Parties</h2>
             <p>
-              Depending on your location, you may have rights regarding personal information. As we do not retain personal data from the core service, these rights related to access, correction, or deletion of stored data are generally not applicable to image data processed. However, you can contact us at the email provided with any privacy-related questions or concerns about automatically collected technical information.
+              We do not share, sell, or disclose any image data or personal information to third parties for marketing or any other purposes. Any data processed through third-party APIs is done solely for the purpose of generating transformations and is deleted once the process is completed.
+            </p>
+            <p className="mt-2">
+              Your images are never used for training AI models, marketing purposes, or any other use beyond providing you with the transformation service you requested.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Updates to This Notice</h2>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">6. Account Information</h2>
             <p>
-              We may update this privacy notice from time to time. The updated version will be indicated by an updated
-              "Revised" date and the updated version will be effective as soon as it is accessible.
+              For users who create accounts, we only collect and store the minimum information necessary: email address for authentication and account management, and usage statistics for billing purposes (number of transformations used).
+            </p>
+            <p className="mt-2">
+              Account data is stored securely and is never shared with third parties. You can delete your account at any time, which will permanently remove all associated data.
             </p>
           </section>
 
-           <section>
-            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Contact Us</h2>
+          <section>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">7. Your Privacy Rights</h2>
             <p>
-              If you have questions or comments about this notice, you may email us at bhyte.llc@gmail.com
+              Since we do not retain image data, most traditional data rights (access, correction, deletion) are not applicable to the core transformation service. However, for account information, you have the right to access, correct, or delete your account data at any time.
+            </p>
+            <p className="mt-2">
+              You can contact us with any privacy-related questions or concerns about our data handling practices.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">8. Updates to This Policy</h2>
+            <p>
+              We may update this privacy policy from time to time. The updated version will be indicated by an updated "Last Updated" date at the top of this policy. We will notify users of any significant changes through the app or via email.
+            </p>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">9. Contact Information</h2>
+            <p>
+              If you have any questions or concerns regarding this privacy policy, you can contact us at: <strong>bhyte.llc@gmail.com</strong>
+            </p>
+            <p className="mt-2">
+              We are committed to protecting your privacy and will respond to all inquiries within 48 hours.
             </p>
           </section>
         </div>
@@ -133,4 +145,4 @@ const PrivacyPolicy = () => {
   );
 };
 
-export default PrivacyPolicy; 
+export default PrivacyPolicy;

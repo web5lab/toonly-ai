@@ -143,30 +143,7 @@ function Pricing({ userId, isAuthenticated, triggerAuthModal }) {
       </div>
     </div>
   </section>
-  )
-}
-            <Button
-              className="w-full max-w-xs mt-4 bg-yellow-500 hover:bg-yellow-600 text-[#3a2e23] playful-shadow font-semibold text-lg py-3"
-              onClick={() => {
-                if (userId) {
-                  const amountToCredit = 0;
-                  const paymentUrl = `https://checkout.dodopayments.com/buy/pdt_3NqIyERjd8icANIGDBrKJ?quantity=1&redirect_url=https://toonlyai.com&metadata_user_id=${encodeURIComponent(userId)}&metadata_credit_amount=${amountToCredit}`;
-                  console.log(`[Payment] Redirecting (Subscription) to: ${paymentUrl}`);
-                  window.location.href = paymentUrl;
-                } else {
-                  console.log("[Payment] User not authenticated for subscription purchase. Triggering auth modal.");
-                  triggerAuthModal();
-                }
-              }}
-            >
-              Subscribe Now
-            </Button>
-          </div>
-        </TabsContent>
-      </Tabs>
-    </div>
-  </section>
-  )
+  );
 }
 
 export default Pricing

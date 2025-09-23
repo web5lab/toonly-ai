@@ -404,7 +404,6 @@ const Index = () => {
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           {/* <Testimonials /> */}
           <MobileApp />
-          <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} />
           <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={(open) => dispatch(setPricingModalOpen(open))} />
           <Faq />
           <Footer />

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from "@/components/ui/button";
-import { Loader2, Star, Menu, Clock } from "lucide-react";
+import { Loader2, Star, Menu, Clock, Shield } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import {
   DropdownMenu,
@@ -116,6 +116,13 @@ function Header({
           <span className="sr-only">View History</span>
         </Button>
 
+        {/* Privacy Policy Link */}
+        <a
+          href="/privacy-policy"
+          className="text-white hover:text-white/80 transition-colors text-sm font-medium"
+        >
+          Privacy
+        </a>
         {/* Buy Stars Button (Second) */}
         <button
           onClick={() => setIsPricingModalOpen(true)}

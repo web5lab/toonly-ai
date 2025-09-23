@@ -109,7 +109,7 @@ const PrivacyPolicy = () => {
           <section>
             <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">9. Contact Information</h2>
             <p>
-              If you have any questions or concerns regarding this privacy policy, you can contact us at: <strong>bhyte.llc@gmail.com</strong>
+              If you have any questions or concerns regarding this privacy policy, you can contact us at: <strong>hello@toonlyai.com</strong>
             </p>
             <p className="mt-2">
               We are committed to protecting your privacy and will respond to all inquiries within 48 hours.

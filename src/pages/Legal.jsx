@@ -107,7 +107,7 @@ const Legal = () => {
            <section>
             <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">Contact Information</h2>
             <p>
-             For any legal questions or notices, please contact us at bhyte.llc@gmail.com or by post to:
+             For any legal questions or notices, please contact us at hello@toonlyai.com or by post to:
              ToonlyAI, a product of Bhyte Company LLC, Papafio Hills, East Legon Hills.
             </p>
           </section>

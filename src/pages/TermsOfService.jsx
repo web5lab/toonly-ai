@@ -107,7 +107,7 @@ const TermsOfService = () => {
            <section>
             <h2 className="text-2xl font-semibold mb-3 text-[#8b5e3c]">9. Contact Us</h2>
             <p>
-              If you have any questions about these Terms, please contact us at bhyte.llc@gmail.com.
+              If you have any questions about these Terms, please contact us at hello@toonlyai.com.
             </p>
           </section>
         </div>

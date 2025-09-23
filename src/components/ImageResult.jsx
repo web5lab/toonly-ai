@@ -186,7 +186,7 @@ export function ImageResult({
         {isImageLoaded && (
           <div className="absolute bottom-4 right-4 flex gap-2 flex-wrap">
             {/* Compare Button - only show if original image is available */}
-            {originalImageUrl && (
+            {/* {originalImageUrl && (
               <Button
                 onClick={() => setShowComparison(true)}
                 className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
@@ -196,7 +196,7 @@ export function ImageResult({
                 <ToggleRight className="h-4 w-4 mr-2" />
                 <span>Compare</span>
               </Button>
-            )}
+            )} */}
             
             {/* Download Button */}
             {onDownload && (

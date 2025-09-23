@@ -25,7 +25,6 @@ import {
 } from "@/store/slices/imageSlice";
 import { imageEditService } from "@/services/imageEditService";
 import { toast } from "sonner";
-import { PricingModal } from "@/components/PricingModal";
 import { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { stylePrompts } from '@/lib/stylePrompts';
@@ -408,11 +407,6 @@ const Index = () => {
           <Footer />
         </main>
         <LoginModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={(open) => dispatch(setAuthModalOpen(open))} handleLoginWithGoogle={handleLoginWithGoogle} />
-        <PricingModal
-          isOpen={isPricingModalOpen}
-          onClose={() => dispatch(setPricingModalOpen(false))}
-          userId={userId}
-        />
         <SubmitStyleModal
           isOpen={isSubmitStyleModalOpen}
           onClose={() => dispatch(setSubmitStyleModalOpen(false))}

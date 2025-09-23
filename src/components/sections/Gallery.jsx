@@ -36,14 +36,14 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                     <span className="text-4xl">AI Image Transformation Gallery</span> <br /> 
                     100+ Free Cartoon & Anime Styles - See the Magic!
                 </h2>
-                <Button
+                {/* <Button
                     onClick={onSubmitStyle}
                     variant="outline"
                     className="bg-[#8b5e3c]/20 border-[#8b5e3c] text-[#8b5e3c] hover:bg-[#8b5e3c]/30 hover:text-[#6d4c30] transition-colors"
                 >
                     <Plus className="h-4 w-4 mr-2" />
                     Submit New Style
-                </Button>
+                </Button> */}
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
                 {currentGalleryItems.map((item) => (
@@ -68,7 +68,7 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                     </div>
                 ))}
             </div>
-            <Pagination className="mt-8">
+            {/* <Pagination className="mt-8">
                 <PaginationContent>
                     <PaginationItem>
                         <PaginationPrevious
@@ -96,7 +96,7 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                         />
                     </PaginationItem>
                 </PaginationContent>
-            </Pagination>
+            </Pagination> */}
         </section>
 
     )

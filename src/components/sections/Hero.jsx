@@ -1,4 +1,6 @@
 import React from 'react'
+import { useAppSelector, useAppDispatch } from "@/hooks/useAppSelector";
+import { setCustomPrompt } from "@/store/slices/appSlice";
 import { Button } from "@/components/ui/button";
 import { ImageUpload } from "@/components/ImageUpload";
 import { StyleSelector } from "@/components/StyleSelector";
@@ -7,7 +9,10 @@ import { Loader2, Brush, Pencil, Edit } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 
-function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processedImageUrl, originalImageUrl, selectedStyle, customPrompt, formattedProcessingTime, handleImageSelect, handleStyleChange, setCustomPrompt, handleTransformClick, handleEditImage, downloadImage}) {
+function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUrl, selectedStyle, formattedProcessingTime, handleImageSelect, handleStyleChange, handleTransformClick, handleEditImage, downloadImage}) {
+    const dispatch = useAppDispatch();
+    const { isProcessing, isEditing, customPrompt } = useAppSelector((state) => state.app);
+    
     return (
         <div className="max-w-7xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -24,7 +29,7 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                                 id="custom-prompt"
                                 placeholder={processedImageUrl ? "Describe further edits (e.g., 'add glasses', 'change background to forest')..." : "Transform an image first to enable editing."}
                                 value={customPrompt}
-                                onChange={(e) => setCustomPrompt(e.target.value)}
+                                onChange={(e) => dispatch(setCustomPrompt(e.target.value))}
                                 disabled={!processedImageUrl || isProcessing || isEditing}
                                 className="bg-white/80 border-[#a87b5d]/60 text-[#3a2e23] placeholder:text-[#5D4037]/70 focus:outline-none focus-visible:ring-1 focus-visible:ring-[#8b5e3c] focus-visible:ring-offset-0 min-h-[80px] resize-none disabled:cursor-not-allowed disabled:bg-opacity-60"
                             />
@@ -36,7 +41,7 @@ function Hero({isAuthenticated, isSubscribed, isProcessing, isEditing, processed
                         selectedStyle={selectedStyle}
                         onChange={handleStyleChange}
                         customPrompt={customPrompt}
-                        onCustomPromptChange={setCustomPrompt}
+                        onCustomPromptChange={(value) => dispatch(setCustomPrompt(value))}
                         disabled={isProcessing || isEditing || (isAuthenticated && isSubscribed && !!processedImageUrl)}
                     />
 

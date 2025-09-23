@@ -1,11 +1,34 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
+import { useAppSelector, useAppDispatch } from "@/hooks/useAppSelector";
+import { 
+  fetchUserSession, 
+  signOut, 
+  setCredits, 
+  updateCredits 
+} from "@/store/slices/authSlice";
+import {
+  setAuthModalOpen,
+  setPricingModalOpen,
+  setSubmitStyleModalOpen,
+  setSelectedStyle,
+  setCustomPrompt,
+  setProcessing,
+  setEditing,
+  setProcessingTime,
+  resetAppState
+} from "@/store/slices/appSlice";
+import {
+  setSelectedFile,
+  setOriginalImageUrl,
+  setProcessedImageUrl,
+  clearImages
+} from "@/store/slices/imageSlice";
 import { imageEditService } from "@/services/imageEditService";
 import { toast } from "sonner";
 import { PricingModal } from "@/components/PricingModal";
 import { SkeletonTheme } from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css';
 import { stylePrompts } from '@/lib/stylePrompts';
-import { fetchUserData } from "../services/userService";
 import { useImageHistory } from "@/hooks/useImageHistory";
 import Testimonials from "../components/sections/Testimonials";
 import Pricing from "../components/sections/Pricing";
@@ -22,24 +45,39 @@ import MobileApp from "../components/sections/MobileApp";
 
 
 const Index = () => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [originalImageUrl, setOriginalImageUrl] = useState(null);
-  const [selectedStyle, setSelectedStyle] = useState("ghibli");
-  const [customPrompt, setCustomPrompt] = useState("");
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [processingTimeMs, setProcessingTimeMs] = useState(0);
+  const dispatch = useAppDispatch();
+  
+  // Redux state
+  const { 
+    isAuthenticated, 
+    user, 
+    userId, 
+    credits, 
+    isSubscribed, 
+    isLoading: isSessionLoading 
+  } = useAppSelector((state) => state.auth);
+  
+  const {
+    isAuthModalOpen,
+    isPricingModalOpen,
+    isSubmitStyleModalOpen,
+    selectedStyle,
+    customPrompt,
+    isProcessing,
+    isEditing,
+    processingTimeMs
+  } = useAppSelector((state) => state.app);
+  
+  const {
+    selectedFile,
+    originalImageUrl,
+    processedImageUrl
+  } = useAppSelector((state) => state.image);
+  
+  // Local state for timer and refs
   const startTimeRef = useRef(null);
   const animationFrameRef = useRef(null);
-  const [processedImageUrl, setProcessedImageUrl] = useState(null);
-  const [credits, setCredits] = useState(0);
   const prevCreditsRef = useRef(0);
-  const [isLoadingCredits, setIsLoadingCredits] = useState(false);
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [isSubmitStyleModalOpen, setIsSubmitStyleModalOpen] = useState(false);
-  const [sessionState, setSessionState] = useState({ data: null, isLoading: false, error: null });
 
   // History hook
   const {
@@ -49,42 +87,10 @@ const Index = () => {
     clearAllHistory
   } = useImageHistory();
 
-  // --- Define fetchSession as useCallback ---
-  const fetchSession = useCallback(async (isMountedCheck = true) => {
-    console.log("[Frontend Index] Attempting to fetch session (callable)...");
-    try {
-      const token = localStorage.getItem("authToken");
-      if (token) {
-        setSessionState(prevState => ({ ...prevState, isLoading: true, error: null }));
-        const userData = await fetchUserData(token);
-        prevCreditsRef.current = credits;
-        setCredits(userData?.user?.credits || 0);
-        setIsSubscribed(userData?.user?.subscription_active || false);
-        setSessionState({ data: { session: { userId: userData._id }, user: userData.user }, isLoading: false, error: null });
-        console.log("userData:", userData.user);
-      }
-    } catch (catchError) {
-      console.error("[Frontend Index] Exception fetching session (callable):", catchError);
-      setSessionState({ data: null, isLoading: false, error });
-    }
-  }, []); // Empty dependency array, as it doesn't depend on component state/props
-
-  // Fetch session manually on mount using the callable function
+  // Fetch session on mount
   useEffect(() => {
-    let isMounted = true;
-    fetchSession(isMounted); // Pass mount status
-    return () => { isMounted = false; }; // Cleanup remains important
-  }, [fetchSession]); // Depend on fetchSession
-
-  // Derive authentication status and user data
-  const session = sessionState.data?.session;
-  const user = sessionState.data?.user;
-  const userId = session?.userId;
-  const isAuthenticated = !!session;
-  const userEmail = user?.email;
-  const isSessionLoading = sessionState.isLoading;
-
-
+    dispatch(fetchUserSession());
+  }, [dispatch]);
 
   // Update previous credits ref after successful transform fetch
   useEffect(() => {
@@ -93,25 +99,25 @@ const Index = () => {
 
   // Function to refresh credits (call after successful transform)
   const refreshCredits = useCallback(async () => {
-    fetchSession();
-  }, [isAuthenticated]);
+    dispatch(fetchUserSession());
+  }, [dispatch]);
 
   const handleImageSelect = useCallback((file) => {
-    setSelectedFile(file);
+    dispatch(setSelectedFile(file));
 
     // Create URL for the original image to use in comparison
     if (file) {
       const reader = new FileReader();
       reader.onload = (e) => {
-        setOriginalImageUrl(e.target.result);
+        dispatch(setOriginalImageUrl(e.target.result));
       };
       reader.readAsDataURL(file);
     } else {
-      setOriginalImageUrl(null);
+      dispatch(setOriginalImageUrl(null));
     }
 
-    setProcessedImageUrl(null);
-    setCustomPrompt("");
+    dispatch(setProcessedImageUrl(null));
+    dispatch(setCustomPrompt(""));
 
     // --- Timer Reset Logic --- 
     console.log("[Image Select] New image selected, resetting timer and states.");
@@ -120,18 +126,18 @@ const Index = () => {
       animationFrameRef.current = null;
     }
     startTimeRef.current = null;
-    setProcessingTimeMs(0);
-    setIsProcessing(false); // Ensure processing flags are off
-    setIsEditing(false);
+    dispatch(setProcessingTime(0));
+    dispatch(setProcessing(false)); // Ensure processing flags are off
+    dispatch(setEditing(false));
     // --- End Timer Reset Logic ---
-  }, []);
+  }, [dispatch]);
 
   const handleStyleChange = useCallback((styleId) => {
-    setSelectedStyle(styleId);
-  }, []);
+    dispatch(setSelectedStyle(styleId));
+  }, [dispatch]);
 
   const triggerAuthModal = () => {
-    setIsAuthModalOpen(true);
+    dispatch(setAuthModalOpen(true));
   };
 
   const processImage = useCallback(async (promptToUse) => {
@@ -151,18 +157,18 @@ const Index = () => {
       animationFrameRef.current = null;
     }
     startTimeRef.current = null; // Reset start time reference
-    setProcessingTimeMs(0); // Reset the displayed timer value
+    dispatch(setProcessingTime(0)); // Reset the displayed timer value
     // --- End Timer Reset Logic ---
 
-    setIsProcessing(true);
-    setProcessedImageUrl(null);
-    setCustomPrompt("");
+    dispatch(setProcessing(true));
+    dispatch(setProcessedImageUrl(null));
+    dispatch(setCustomPrompt(""));
 
     try {
       console.log(`[Frontend Index] Calling imageEditService.transformImageWithPrompt with prompt: "${promptToUse}"`);
       const editedImageUrl = await imageEditService.transformImageWithPrompt(selectedFile, promptToUse);
 
-      setProcessedImageUrl(editedImageUrl);
+      dispatch(setProcessedImageUrl(editedImageUrl));
       toast.success("Image transformed successfully!");
       await refreshCredits();
 
@@ -176,9 +182,9 @@ const Index = () => {
     } catch (error) {
       handleApiError(error);
     } finally {
-      setIsProcessing(false);
+      dispatch(setProcessing(false));
     }
-  }, [selectedFile, refreshCredits]);
+  }, [selectedFile, refreshCredits, dispatch]);
 
   const handleEditImage = useCallback(async () => {
     if (!isAuthenticated || !isSubscribed) {
@@ -211,17 +217,17 @@ const Index = () => {
       animationFrameRef.current = null;
     }
     startTimeRef.current = null; // Clear start time ref
-    setProcessingTimeMs(0); // Reset displayed time
+    dispatch(setProcessingTime(0)); // Reset displayed time
     // --- End Timer Reset Logic ---
 
-    setIsEditing(true); // Now set editing state
+    dispatch(setEditing(true)); // Now set editing state
 
     try {
       // Directly use processedImageUrl and the editPrompt
       console.log(`[Frontend Index] Calling imageEditService.callEditApi with prompt: "${editPrompt}"`);
       const editedImageUrl = await imageEditService.callEditApi(processedImageUrl, editPrompt);
 
-      setProcessedImageUrl(editedImageUrl);
+      dispatch(setProcessedImageUrl(editedImageUrl));
       toast.success("Image edited successfully!");
       await refreshCredits();
 
@@ -235,14 +241,14 @@ const Index = () => {
     } catch (error) {
       handleApiError(error);
     } finally {
-      setIsEditing(false);
+      dispatch(setEditing(false));
     }
-  }, [processedImageUrl, customPrompt, isAuthenticated, isSubscribed, credits, refreshCredits, isProcessing, isEditing]);
+  }, [processedImageUrl, customPrompt, isAuthenticated, isSubscribed, credits, refreshCredits, isProcessing, isEditing, dispatch]);
 
   const handleApiError = (error) => {
     console.error("[Frontend Index] Error processing image:", error);
     if (error.status === 402) {
-      setIsPricingModalOpen(true);
+      dispatch(setPricingModalOpen(true));
     } else if (error.status === 401) {
       toast.error("Authentication error. Please sign in again.");
     } else {
@@ -289,15 +295,16 @@ const Index = () => {
   const handleLoginWithGoogle = async () => {
     window.location.href = `${import.meta.env.VITE_SERVER_URL}/auth/google`;
     toast.success("Redirecting to Google...");
-  }
+  };
 
   // Restore the handleSignOut function
   const handleSignOut = async () => {
     try {
       console.log("[Frontend Index] Signing out...");
-      localStorage.clear();
+      await dispatch(signOut()).unwrap();
       console.log("[Frontend Index] Sign out successful, clearing session state.");
-      setSessionState({ data: null, isLoading: false, error: null });
+      dispatch(resetAppState());
+      dispatch(clearImages());
       toast.success("Signed out successfully!");
     } catch (error) {
       console.error("[Frontend Index] Sign out error:", error);
@@ -312,7 +319,7 @@ const Index = () => {
     const updateTimer = () => {
       if (startTimeRef.current) {
         const elapsed = Date.now() - startTimeRef.current;
-        setProcessingTimeMs(elapsed);
+        dispatch(setProcessingTime(elapsed));
         // Continue the loop only if still active
         if (isActive) {
           animationFrameRef.current = requestAnimationFrame(updateTimer);
@@ -324,7 +331,7 @@ const Index = () => {
       // Start timer or ensure it continues
       if (!startTimeRef.current) {
         // Only reset/set start time if timer wasn't already running
-        setProcessingTimeMs(0); // Reset timer state ONLY when starting fresh
+        dispatch(setProcessingTime(0)); // Reset timer state ONLY when starting fresh
         startTimeRef.current = Date.now(); // Record start time
         console.log("[Timer] Starting new timer.");
       } else {
@@ -353,7 +360,7 @@ const Index = () => {
       }
     };
     // Depend on both flags
-  }, [isProcessing, isEditing]);
+  }, [isProcessing, isEditing, dispatch]);
 
   // Format the time for display (e.g., 1m 15.7s or 12.3s)
   const formattedProcessingTime = useMemo(() => {
@@ -374,13 +381,13 @@ const Index = () => {
         <Header
           prevCreditsRef={prevCreditsRef}
           isAuthenticated={isAuthenticated}
-          userEmail={userEmail}
+          userEmail={user?.email}
           credits={credits}
-          isLoadingCredits={isLoadingCredits}
+          isLoadingCredits={false}
           isSessionLoading={isSessionLoading}
           triggerAuthModal={triggerAuthModal}
           handleSignOut={handleSignOut}
-          setIsPricingModalOpen={setIsPricingModalOpen}
+          setIsPricingModalOpen={(open) => dispatch(setPricingModalOpen(open))}
           history={history}
           onDeleteHistoryItem={deleteHistoryItem}
           onClearAllHistory={clearAllHistory}
@@ -394,22 +401,23 @@ const Index = () => {
           </div>
           <HowTo />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => setIsSubmitStyleModalOpen(true)} />
+          <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           {/* <Testimonials /> */}
           <MobileApp />
           <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} />
-          <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={setIsPricingModalOpen} />
+          <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={(open) => dispatch(setPricingModalOpen(open))} />
           <Faq />
           <Footer />
         </main>
-        <LoginModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={setIsAuthModalOpen} handleLoginWithGoogle={handleLoginWithGoogle} />
+        <LoginModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={(open) => dispatch(setAuthModalOpen(open))} handleLoginWithGoogle={handleLoginWithGoogle} />
         <PricingModal
           isOpen={isPricingModalOpen}
-          onClose={() => setIsPricingModalOpen(false)}
+          onClose={() => dispatch(setPricingModalOpen(false))}
           userId={userId}
         />
         <SubmitStyleModal
           isOpen={isSubmitStyleModalOpen}
-          onClose={() => setIsSubmitStyleModalOpen(false)}
+          onClose={() => dispatch(setSubmitStyleModalOpen(false))}
         />
 
       </div>

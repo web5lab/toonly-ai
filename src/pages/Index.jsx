@@ -40,6 +40,7 @@ import LoginModal from "../components/modals/LoginModal";
 import HeroTittle from "../components/sections/HeroTittle";
 import Hero from "../components/sections/Hero";
 import { SubmitStyleModal } from "../components/modals/SubmitStyleModal";
+import PricingModal from "../components/modals/PricingModal";
 import MobileApp from "../components/sections/MobileApp";
 
 
@@ -422,6 +423,11 @@ const Index = () => {
         <SubmitStyleModal
           isOpen={isSubmitStyleModalOpen}
           onClose={() => dispatch(setSubmitStyleModalOpen(false))}
+        />
+        <PricingModal
+          isOpen={isPricingModalOpen}
+          onClose={() => dispatch(setPricingModalOpen(false))}
+          triggerAuthModal={triggerAuthModal}
         />
 
       </div>

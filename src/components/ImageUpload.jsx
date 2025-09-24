@@ -118,7 +118,8 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <img
             src={previewUrl}
             alt="Preview"
-            className="rounded-xl object-contain w-full h-full bg-[#f4efe4]"
+            className="rounded-xl object-contain w-full h-full bg-[#f4efe4] max-h-full"
+            style={{ maxHeight: '100%', maxWidth: '100%' }}
           />
         </div>
       )}

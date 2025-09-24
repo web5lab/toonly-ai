@@ -108,7 +108,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <Button
             variant="ghost"
             size="icon"
-            className="absolute top-2 right-2 bg-background/80 backdrop-blur-sm z-10 rounded-full"
+            className="absolute top-2 right-2 bg-black/50 hover:bg-black/70 backdrop-blur-sm z-10 rounded-full text-white"
             onClick={handleClearImage}
             disabled={isUploading}
           >
@@ -118,7 +118,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <img
             src={previewUrl}
             alt="Preview"
-            className="rounded-xl object-cover w-full h-full"
+            className="rounded-xl object-contain w-full h-full bg-[#f4efe4]"
           />
         </div>
       )}

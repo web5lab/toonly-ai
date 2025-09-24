@@ -63,31 +63,12 @@ function Team() {
 
                                 <div className="space-y-4 mb-6">
                                     <p className="text-[#614e2e] text-base leading-relaxed">
-                                        <strong className="text-[#5D4037]">Visionary entrepreneur</strong> and AI enthusiast who believes in democratizing creativity through technology. 
-                                        Shiva founded ToonlyAI with a mission to make AI-powered image transformation accessible to everyone, 
-                                        regardless of their technical background.
+                                        <strong className="text-[#5D4037]">Visionary entrepreneur</strong> and AI enthusiast who founded ToonlyAI to make AI-powered image transformation accessible to everyone.
                                     </p>
                                     
                                     <div className="bg-[#a87b5d]/20 p-4 rounded-lg playful-border">
-                                        <p className="text-[#5D4037] text-sm font-medium mb-2 flex items-center gap-2">
-                                            <ExternalLink className="h-4 w-4" />
-                                            Previous Success:
-                                        </p>
                                         <p className="text-[#614e2e] text-sm">
-                                            Built <a href="https://redesignr.ai" target="_blank" rel="noopener noreferrer" className="text-[#8b5e3c] font-semibold hover:text-[#6d4c30] transition-colors underline">Redesignr.ai</a> - 
-                                            an innovative AI-powered design platform that has helped thousands of users create stunning visuals effortlessly.
-                                        </p>
-                                    </div>
-
-                                    <div className="bg-[#8b5e3c]/10 p-4 rounded-lg playful-border">
-                                        <p className="text-[#5D4037] text-sm font-medium mb-2 flex items-center gap-2">
-                                            <Code className="h-4 w-4" />
-                                            Development Partner:
-                                        </p>
-                                        <p className="text-[#614e2e] text-sm">
-                                            Collaborating with <strong className="text-[#8b5e3c]">Web5Lab</strong> - 
-                                            a cutting-edge development studio specializing in AI integration and modern web technologies, 
-                                            ensuring ToonlyAI delivers the best possible user experience.
+                                            Previously built <a href="https://redesignr.ai" target="_blank" rel="noopener noreferrer" className="text-[#8b5e3c] font-semibold hover:text-[#6d4c30] transition-colors underline">Redesignr.ai</a> and partnered with <strong className="text-[#8b5e3c]">Web5Lab</strong> for development.
                                         </p>
                                     </div>
                                 </div>
@@ -95,8 +76,7 @@ function Team() {
                                 {/* Quote */}
                                 <div className="bg-gradient-to-r from-[#8b5e3c]/10 to-[#a87b5d]/10 p-4 rounded-lg mb-6 border-l-4 border-[#8b5e3c]">
                                     <p className="text-[#5D4037] italic text-sm leading-relaxed">
-                                        "I believe that creativity should have no boundaries. With ToonlyAI, we're not just transforming images - 
-                                        we're empowering people to see their world through new artistic lenses and express themselves in ways they never imagined possible."
+                                        "I believe creativity should have no boundaries. ToonlyAI empowers people to express themselves through AI-powered art transformation."
                                     </p>
                                     <p className="text-[#8b5e3c] text-xs mt-2 font-medium">- Shiva Kumar, Founder</p>
                                 </div>

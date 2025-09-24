@@ -144,14 +144,14 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
                                 <h3 className="text-lg font-semibold text-[#5D4037]">Generated Result</h3>
                                 <p className="text-sm text-[#8b5e3c] mt-1">Your AI-transformed image is ready!</p>
                             </div>
-                            <div className="h-[400px]">
+                            <div className="h-[400px] overflow-hidden">
                                 <ImageResult 
                                     imageUrl={processedImageUrl} 
                                     originalImageUrl={originalImageUrl}
                                     isLoading={false} 
                                     onDownload={downloadImage} 
                                     formattedProcessingTime={formattedProcessingTime}
-                                    className="h-full"
+                                    className="h-full w-full"
                                 />
                             </div>
                         </div>

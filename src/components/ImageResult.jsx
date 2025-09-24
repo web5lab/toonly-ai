@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
 import { dataURLtoBlob } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { Download, Image as ImageIcon, ToggleLeft, ToggleRight, Share } from "lucide-react";
+import { Download, Image as ImageIcon, ToggleLeft, ToggleRight, Share, Eye, X } from "lucide-react";
 import { useState } from "react";
 import BeforeAfterSlider from "./BeforeAfterSlider";
 import { toast } from "sonner";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 
 
@@ -19,6 +20,7 @@ export function ImageResult({
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
   const [isSharing, setIsSharing] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
 
   const handleShareImage = async () => {
     if (!imageUrl) {
@@ -178,7 +180,7 @@ export function ImageResult({
           src={imageUrl}
           alt="Processed image"
           className={cn(
-            "w-full h-auto object-contain max-h-[calc(100vh-200px)]",
+            "w-full h-full object-contain",
             !isImageLoaded && "opacity-0"
           )}
           onLoad={() => setIsImageLoaded(true)}
@@ -197,6 +199,17 @@ export function ImageResult({
                 <span>Compare</span>
               </Button>
             )} */}
+            
+            {/* Preview Button */}
+            <Button
+              onClick={() => setShowPreview(true)}
+              className="bg-purple-600 hover:bg-purple-700 text-white playful-shadow"
+              variant="default"
+              size="sm"
+            >
+              <Eye className="h-4 w-4 mr-2" />
+              <span>Preview</span>
+            </Button>
             
             {/* Download Button */}
             {onDownload && (
@@ -234,6 +247,68 @@ export function ImageResult({
           </div>
         )}
       </div>
+
+      {/* Full Screen Preview Modal */}
+      <Dialog open={showPreview} onOpenChange={setShowPreview}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none">
+          <div className="relative w-full h-full flex items-center justify-center">
+            {/* Close Button */}
+            <Button
+              onClick={() => setShowPreview(false)}
+              className="absolute top-4 right-4 z-50 bg-white/20 hover:bg-white/30 text-white border-none"
+              variant="ghost"
+              size="icon"
+            >
+              <X className="h-6 w-6" />
+            </Button>
+            
+            {/* Full Screen Image */}
+            <img
+              src={imageUrl}
+              alt="Full screen preview"
+              className="max-w-full max-h-full object-contain"
+              style={{ maxHeight: '90vh', maxWidth: '90vw' }}
+            />
+            
+            {/* Action Buttons */}
+            <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
+              {/* Download Button */}
+              {onDownload && (
+                <Button
+                  onClick={onDownload}
+                  className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-white playful-shadow"
+                  variant="default"
+                  size="sm"
+                >
+                  <Download className="h-4 w-4 mr-2" />
+                  <span>Download</span>
+                </Button>
+              )}
+              
+              {/* Share Button */}
+              <Button
+                onClick={handleShareImage}
+                disabled={isSharing}
+                className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
+                variant="default"
+                size="sm"
+              >
+                {isSharing ? (
+                  <>
+                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                    <span>Sharing...</span>
+                  </>
+                ) : (
+                  <>
+                    <Share className="h-4 w-4 mr-2" />
+                    <span>Share</span>
+                  </>
+                )}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

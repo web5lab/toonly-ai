@@ -42,6 +42,7 @@ import Hero from "../components/sections/Hero";
 import { SubmitStyleModal } from "../components/modals/SubmitStyleModal";
 import PricingModal from "../components/modals/PricingModal";
 import MobileApp from "../components/sections/MobileApp";
+import Team from "../components/sections/Team";
 
 
 const Index = () => {
@@ -414,6 +415,7 @@ const Index = () => {
           <HowTo />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           {/* <Testimonials /> */}
+          <Team />
           <MobileApp />
           <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={(open) => dispatch(setPricingModalOpen(open))} />
           <Faq />

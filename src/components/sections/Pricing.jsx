@@ -48,9 +48,7 @@ function Pricing({ triggerAuthModal }) {
 
     // Open in new tab/window
     window.open(paymentUrl, "_blank", "noopener,noreferrer");
-  };
-
-  console.log(user.currentPlan)
+  }
 
 
   return (

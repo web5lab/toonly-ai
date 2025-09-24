@@ -1,10 +1,10 @@
 import { useState, useCallback, useRef, useEffect, useMemo } from "react";
 import { useAppSelector, useAppDispatch } from "@/hooks/useAppSelector";
-import { 
-  fetchUserSession, 
-  signOut, 
-  setCredits, 
-  updateCredits 
+import {
+  fetchUserSession,
+  signOut,
+  setCredits,
+  updateCredits
 } from "@/store/slices/authSlice";
 import {
   setAuthModalOpen,
@@ -45,19 +45,19 @@ import MobileApp from "../components/sections/MobileApp";
 
 const Index = () => {
   const dispatch = useAppDispatch();
-  
+  const [isAuthModalOpen, setisAuthModalOpen] = useState(false)
+
   // Redux state
-  const { 
-    isAuthenticated, 
-    user, 
-    userId, 
-    credits, 
-    isSubscribed, 
-    isLoading: isSessionLoading 
-  } = useAppSelector((state) => state.auth);
-  
   const {
-    isAuthModalOpen,
+    isAuthenticated,
+    user,
+    userId,
+    credits,
+    isSubscribed,
+    isLoading: isSessionLoading
+  } = useAppSelector((state) => state.auth);
+
+  const {
     isPricingModalOpen,
     isSubmitStyleModalOpen,
     selectedStyle,
@@ -66,13 +66,13 @@ const Index = () => {
     isEditing,
     processingTimeMs
   } = useAppSelector((state) => state.app);
-  
+
   const {
     selectedFile,
     originalImageUrl,
     processedImageUrl
   } = useAppSelector((state) => state.image);
-  
+
   // Local state for timer and refs
   const startTimeRef = useRef(null);
   const animationFrameRef = useRef(null);
@@ -136,7 +136,7 @@ const Index = () => {
   }, [dispatch]);
 
   const triggerAuthModal = () => {
-    dispatch(setAuthModalOpen(true));
+    setisAuthModalOpen(true);
   };
 
   const processImage = useCallback(async (promptToUse) => {
@@ -418,7 +418,7 @@ const Index = () => {
           <Faq />
           <Footer />
         </main>
-        <LoginModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={(open) => dispatch(setAuthModalOpen(open))} handleLoginWithGoogle={handleLoginWithGoogle} />
+        <LoginModal isAuthModalOpen={isAuthModalOpen} setIsAuthModalOpen={(open) => setisAuthModalOpen(open)} handleLoginWithGoogle={handleLoginWithGoogle} />
         <SubmitStyleModal
           isOpen={isSubmitStyleModalOpen}
           onClose={() => dispatch(setSubmitStyleModalOpen(false))}

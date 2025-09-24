@@ -54,7 +54,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
   const handleDrop = (e) => {
     e.preventDefault();
     setIsDragging(false);
-    
+
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       handleFileChange(e.dataTransfer.files[0]);
     }
@@ -87,7 +87,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
             accept="image/*"
             onChange={(e) => handleFileChange(e.target.files?.[0] || null)}
           />
-          <Button 
+          <Button
             onClick={() => document.getElementById('image-upload')?.click()}
             type="button"
             className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
@@ -96,7 +96,7 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           </Button>
         </div>
       ) : (
-        <div className="relative">
+        <div className="relative w-full max-h-[500px] rounded-xl bg-[#f4efe4] flex items-center justify-center overflow-hidden">
           {isUploading && (
             <div className="absolute inset-0 flex items-center justify-center bg-black/40 rounded-xl z-20">
               <div className="text-center">
@@ -118,10 +118,10 @@ export function ImageUpload({ onImageSelect, className, isUploading = false }) {
           <img
             src={previewUrl}
             alt="Preview"
-            className="rounded-xl object-contain w-full h-full bg-[#f4efe4] max-h-full"
-            style={{ maxHeight: '100%', maxWidth: '100%' }}
+            className="object-contain max-w-full max-h-[500px]"
           />
         </div>
+
       )}
     </div>
   );

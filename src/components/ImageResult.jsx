@@ -7,15 +7,13 @@ import BeforeAfterSlider from "./BeforeAfterSlider";
 import { toast } from "sonner";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
-
-
-export function ImageResult({ 
-  imageUrl, 
-  isLoading, 
+export function ImageResult({
+  imageUrl,
+  isLoading,
   formattedProcessingTime,
   originalImageUrl,
   className,
-  onDownload 
+  onDownload
 }) {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
@@ -39,7 +37,7 @@ export function ImageResult({
     try {
       // Convert data URL to Blob
       const blob = await dataURLtoBlob(imageUrl);
-      
+
       // Create a File object from the Blob
       const file = new File([blob], `toonly-ai-transformed-${Date.now()}.png`, {
         type: 'image/png',
@@ -72,9 +70,10 @@ export function ImageResult({
       setIsSharing(false);
     }
   };
+
   if (isLoading) {
     return (
-      <div 
+      <div
         className={cn(
           "relative flex flex-col items-center justify-center h-full min-h-[400px] bg-[#f4efe4]",
           className
@@ -94,7 +93,7 @@ export function ImageResult({
 
   if (!imageUrl) {
     return (
-      <div 
+      <div
         className={cn(
           "flex flex-col items-center justify-center h-full min-h-[400px] bg-[#f4efe4]",
           className
@@ -114,13 +113,13 @@ export function ImageResult({
   // Show comparison view if both images are available and comparison is enabled
   if (showComparison && originalImageUrl && imageUrl) {
     return (
-      <div className={cn("relative overflow-hidden h-full bg-[#f4efe4]", className)}>
-        <BeforeAfterSlider 
-          beforeImage={originalImageUrl} 
+      <div className={cn("relative h-full bg-[#f4efe4]", className)}>
+        <BeforeAfterSlider
+          beforeImage={originalImageUrl}
           afterImage={imageUrl}
           className="w-full h-full"
         />
-        
+
         {/* Toggle Button */}
         <Button
           onClick={() => setShowComparison(false)}
@@ -131,7 +130,7 @@ export function ImageResult({
           <ToggleLeft className="h-4 w-4 mr-2" />
           <span>Single View</span>
         </Button>
-        
+
         {/* Download Button */}
         {onDownload && (
           <Button
@@ -144,109 +143,60 @@ export function ImageResult({
             <span>Download Result</span>
           </Button>
         )}
-        
-        {/* Share Button */}
-        <Button
-          onClick={handleShareImage}
-          disabled={isSharing}
-          className="absolute bottom-4 left-4 bg-blue-600 hover:bg-blue-700 text-white playful-shadow z-20"
-          variant="default"
-          size="sm"
-        >
-          {isSharing ? (
-            <>
-              <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-              <span>Sharing...</span>
-            </>
-          ) : (
-            <>
-              <Share className="h-4 w-4 mr-2" />
-              <span>Share</span>
-            </>
-          )}
-        </Button>
       </div>
     );
   }
+
   return (
-    <div className={cn("relative overflow-hidden h-full bg-[#f4efe4] flex justify-center items-center", className)}>
-      <div className="relative h-auto max-w-full max-h-full">
+    <div className={cn("relative h-full bg-[#f4efe4] min-h-[400px]", className)}>
+      {/* Image Container */}
+      <div className="relative w-full h-full flex items-center justify-center p-4 pb-20">
         {!isImageLoaded && (
-          <div className="absolute inset-0 flex items-center justify-center">
+          <div className="absolute inset-0 flex items-center justify-center z-20">
             <div className="w-10 h-10 border-4 border-[#a87b5d] border-t-transparent rounded-full animate-spin"></div>
           </div>
         )}
+
         <img
           src={imageUrl}
           alt="Processed image"
           className={cn(
-            "w-full h-full object-contain",
+            "object-contain max-w-full max-h-full rounded-xl shadow-lg",
             !isImageLoaded && "opacity-0"
           )}
+          style={{ maxHeight: 'calc(100% - 80px)' }}
           onLoad={() => setIsImageLoaded(true)}
         />
-        {isImageLoaded && (
-          <div className="absolute bottom-4 right-4 flex gap-2 flex-wrap">
-            {/* Compare Button - only show if original image is available */}
-            {/* {originalImageUrl && (
-              <Button
-                onClick={() => setShowComparison(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
-                variant="default"
-                size="sm"
-              >
-                <ToggleRight className="h-4 w-4 mr-2" />
-                <span>Compare</span>
-              </Button>
-            )} */}
-            
-            {/* Preview Button */}
-            <Button
-              onClick={() => setShowPreview(true)}
-              className="bg-purple-600 hover:bg-purple-700 text-white playful-shadow"
-              variant="default"
-              size="sm"
-            >
-              <Eye className="h-4 w-4 mr-2" />
-              <span>Preview</span>
-            </Button>
-            
-            {/* Download Button */}
-            {onDownload && (
-              <Button
-                onClick={onDownload}
-                className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] playful-shadow"
-                variant="default"
-                size="sm"
-              >
-                <Download className="h-4 w-4 mr-2" />
-                <span>Download Result</span>
-              </Button>
-            )}
-            
-            {/* Share Button */}
-            <Button
-              onClick={handleShareImage}
-              disabled={isSharing}
-              className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
-              variant="default"
-              size="sm"
-            >
-              {isSharing ? (
-                <>
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                  <span>Sharing...</span>
-                </>
-              ) : (
-                <>
-                  <Share className="h-4 w-4 mr-2" />
-                  <span>Share</span>
-                </>
-              )}
-            </Button>
-          </div>
-        )}
       </div>
+
+      {/* Action Buttons - Fixed positioning outside image container */}
+      {isImageLoaded && (
+        <div className="absolute bottom-4 right-4 flex gap-2 flex-wrap z-30">
+          {/* Preview Button */}
+          <Button
+            onClick={() => setShowPreview(true)}
+            className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg hover:shadow-xl transition-all"
+            variant="default"
+            size="sm"
+          >
+            <Eye className="h-4 w-4 mr-2" />
+            <span className="hidden sm:inline">Preview</span>
+          </Button>
+
+          {/* Download Button */}
+          {onDownload && (
+            <Button
+              onClick={onDownload}
+              className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-[#FFF8E1] shadow-lg hover:shadow-xl transition-all"
+              variant="default"
+              size="sm"
+            >
+              <Download className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Download</span>
+            </Button>
+          )}
+        </div>
+      )}
 
       {/* Full Screen Preview Modal */}
       <Dialog open={showPreview} onOpenChange={setShowPreview}>
@@ -261,7 +211,7 @@ export function ImageResult({
             >
               <X className="h-6 w-6" />
             </Button>
-            
+
             {/* Full Screen Image */}
             <img
               src={imageUrl}
@@ -269,14 +219,14 @@ export function ImageResult({
               className="max-w-full max-h-full object-contain"
               style={{ maxHeight: '90vh', maxWidth: '90vw' }}
             />
-            
+
             {/* Action Buttons */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-3">
               {/* Download Button */}
               {onDownload && (
                 <Button
                   onClick={onDownload}
-                  className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-white playful-shadow"
+                  className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-white shadow-lg hover:shadow-xl transition-all"
                   variant="default"
                   size="sm"
                 >
@@ -284,27 +234,6 @@ export function ImageResult({
                   <span>Download</span>
                 </Button>
               )}
-              
-              {/* Share Button */}
-              <Button
-                onClick={handleShareImage}
-                disabled={isSharing}
-                className="bg-blue-600 hover:bg-blue-700 text-white playful-shadow"
-                variant="default"
-                size="sm"
-              >
-                {isSharing ? (
-                  <>
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
-                    <span>Sharing...</span>
-                  </>
-                ) : (
-                  <>
-                    <Share className="h-4 w-4 mr-2" />
-                    <span>Share</span>
-                  </>
-                )}
-              </Button>
             </div>
           </div>
         </DialogContent>

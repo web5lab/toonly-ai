@@ -60,58 +60,11 @@ function Pricing({ triggerAuthModal }) {
             Choose Your Plan
           </h2>
           <p className="text-center text-[#614e2e]/90">
-            Start with our free trial, then choose a subscription that fits your needs. Each transformation costs 10 stars.
+            Choose a subscription that fits your needs. Each transformation costs 10 stars.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-2">
-          {/* Free Trial */}
-          <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/30 flex flex-col hover:bg-white/40 transition-colors shadow-md ${user?.currentPlan === 'free' ? 'ring-2 ring-green-500' : ''}`}>
-            {user?.currentPlan === 'free' && (
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-3 py-0.5 rounded-full text-xs font-bold">Current Plan</div>
-            )}
-            <div className="flex items-center justify-center gap-2 mb-2">
-              <span className="text-2xl">🎁</span>
-              <h3 className="font-semibold text-lg text-[#3a2e23]">Free Trial</h3>
-            </div>
-            <p className="text-lg font-bold text-green-600 my-3">10 Stars on Signup</p>
-            <ul className="text-sm text-[#5D4037]/90 list-none space-y-2 my-4 text-left px-2 flex-grow">
-              <li className="flex items-center gap-2">
-                <span>✨</span>
-                <span>Try before you subscribe</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>🎨</span>
-                <span>Access to 100+ Styles</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <span>⏱️</span>
-                <span>{"< 1 Min Turnaround"}</span>
-              </li>
-            </ul>
-            {user?.currentPlan === 'free' ? (
-              <Button
-                className="w-full mt-auto bg-green-600 text-white playful-shadow cursor-not-allowed opacity-70"
-                disabled
-              >
-                Current Plan
-              </Button>
-            ) : (
-              <Button
-                className="w-full mt-auto bg-green-600 hover:bg-green-700 text-white playful-shadow"
-                onClick={() => {
-                  if (!isAuthenticated) {
-                    triggerAuthModal();
-                  } else {
-                    alert("You already have your free trial stars!");
-                  }
-                }}
-              >
-                Get Started Free
-              </Button>
-            )}
-          </div>
-
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-2 max-w-3xl mx-auto">
           {/* Starter Plan */}
           <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/30 flex flex-col hover:bg-white/40 transition-colors shadow-md ${user?.currentPlan === 'starter' ? 'ring-2 ring-[#8b5e3c]' : ''}`}>
             {user?.currentPlan === 'starter' && (
@@ -121,15 +74,15 @@ function Pricing({ triggerAuthModal }) {
               <span className="text-2xl">🌟</span>
               <h3 className="font-semibold text-lg text-[#3a2e23]">Starter Plan</h3>
             </div>
-            <p className="text-2xl font-bold text-[#8b5e3c] my-3">$10 / month</p>
+            <p className="text-2xl font-bold text-[#8b5e3c] my-3">$5 / month</p>
             <ul className="text-sm text-[#5D4037]/90 list-none space-y-2 my-4 text-left px-2 flex-grow">
               <li className="flex items-center gap-2">
                 <span>✨</span>
-                <span>250 Stars / month</span>
+                <span>100 Stars / month</span>
               </li>
               <li className="flex items-center gap-2">
                 <span>💰</span>
-                <span>$0.04 per Star</span>
+                <span>$0.05 per Star</span>
               </li>
               <li className="flex items-center gap-2">
                 <span>🎨</span>

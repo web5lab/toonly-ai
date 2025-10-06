@@ -4,7 +4,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 function Faq() {
     return (
         <section className="py-16 text-center">
-            <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-[#f4efe4] [text-shadow:1px_1px_2px_rgba(93,64,55,0.7)]">ToonlyAI FAQ - Free AI Photo to Cartoon Converter</h2>
+            <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-[#f4efe4] [text-shadow:1px_1px_2px_rgba(93,64,55,0.7)]">ToonlyAI FAQ - AI Photo to Cartoon Converter</h2>
             <div className="max-w-3xl mx-auto text-left">
                 <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="item-1" className="border-b border-[#f4efe4]/20">

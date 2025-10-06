@@ -71,7 +71,67 @@ function PricingModal({ isOpen, onClose, triggerAuthModal }) {
           </DialogDescription>
         </DialogHeader>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-2">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-2">
+          {/* Basic Plan */}
+          <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/10 flex flex-col hover:bg-white/20 transition-colors shadow-md relative ${user?.currentPlan === 'basic' ? 'ring-2 ring-[#8b5e3c]' : ''}`}>
+            {user?.currentPlan === 'basic' && (
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#8b5e3c] text-white px-3 py-0.5 rounded-full text-xs font-bold">Current Plan</div>
+            )}
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <span className="text-2xl">🌟</span>
+              <h3 className="font-semibold text-lg text-white">Basic Plan</h3>
+            </div>
+            <p className="text-2xl font-bold text-[#8b5e3c] my-3">$5 / month</p>
+            <ul className="text-sm text-[#e9e2d6]/80 list-none space-y-2 my-4 text-left px-2 flex-grow">
+              <li className="flex items-center gap-2">
+                <span>✨</span>
+                <span>100 Stars / month</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>💰</span>
+                <span>$0.05 per Star</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>🎨</span>
+                <span>Access to 100+ Styles</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span>⏱️</span>
+                <span>{"< 1 Min Turnaround"}</span>
+              </li>
+            </ul>
+            {user?.currentPlan === 'basic' ? (
+              <Button
+                className="w-full mt-auto bg-red-600 hover:bg-red-700 text-white"
+                onClick={handleCancelSubscription}
+                disabled={isCancelling}
+              >
+                {isCancelling ? 'Cancelling...' : 'Cancel Subscription'}
+              </Button>
+            ) : user?.currentPlan === 'starter' || user?.currentPlan === 'pro' ? (
+              <Button
+                className="w-full mt-auto bg-[#8b5e3c] text-white cursor-not-allowed opacity-70"
+                disabled
+              >
+                Current Plan
+              </Button>
+            ) : (
+              <Button
+                className="w-full mt-auto bg-[#8b5e3c] hover:bg-[#6d4c30] text-white"
+                onClick={() => {
+                  if (user?._id) {
+                    initiatePayment(import.meta.env.VITE_BASIC_PLAN_ID, "Basic Plan")
+                  } else {
+                    onClose();
+                    triggerAuthModal();
+                  }
+                }}
+              >
+                Subscribe Now
+              </Button>
+            )}
+          </div>
+
           {/* Starter Plan */}
           <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/10 flex flex-col hover:bg-white/20 transition-colors shadow-md relative ${user?.currentPlan === 'starter' ? 'ring-2 ring-[#8b5e3c]' : ''}`}>
             {user?.currentPlan === 'starter' && (

@@ -81,15 +81,15 @@ function PricingModal({ isOpen, onClose, triggerAuthModal }) {
               <span className="text-2xl">🌟</span>
               <h3 className="font-semibold text-lg text-white">Starter Plan</h3>
             </div>
-            <p className="text-2xl font-bold text-[#8b5e3c] my-3">$5 / month</p>
+            <p className="text-2xl font-bold text-[#8b5e3c] my-3">$10 / month</p>
             <ul className="text-sm text-[#e9e2d6]/80 list-none space-y-2 my-4 text-left px-2 flex-grow">
               <li className="flex items-center gap-2">
                 <span>✨</span>
-                <span>100 Stars / month</span>
+                <span>250 Stars / month</span>
               </li>
               <li className="flex items-center gap-2">
                 <span>💰</span>
-                <span>$0.05 per Star</span>
+                <span>$0.04 per Star</span>
               </li>
               <li className="flex items-center gap-2">
                 <span>🎨</span>

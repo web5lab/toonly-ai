@@ -412,11 +412,11 @@ const Index = () => {
           <div className="hero-section">
             <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
           </div>
-          <HowTo />
+          {/* <HowTo /> */}
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
-          {/* <Testimonials /> */}
-          <Team />
-          <MobileApp />
+          <Testimonials />
+          {/* <Team /> */}
+          {/* <MobileApp /> */}
           <Pricing userId={userId} isAuthenticated={isAuthenticated} triggerAuthModal={triggerAuthModal} setIsPricingModalOpen={(open) => dispatch(setPricingModalOpen(open))} />
           <Faq />
           <Footer />

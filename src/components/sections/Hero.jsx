@@ -17,7 +17,7 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
         <div className="max-w-7xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left Column - Style Selection and Customization */}
-                <div className="space-y-6">
+                <div className="order-2 md:order-1 space-y-6">
                     {/* --- Edit Transformation Area (Subscribers Only) --- */}
                     {isAuthenticated && isSubscribed && (
                         <div className={`space-y-2 p-4 bg-white/30 rounded-lg border border-[#a87b5d]/40 shadow-inner transition-opacity duration-300 ${processedImageUrl ? 'opacity-100' : 'opacity-50'}`}>
@@ -99,7 +99,7 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
                 </div>
 
                 {/* Right Column - Generated Image (Top) and Upload Form (Bottom) */}
-                <div className="space-y-6">
+                <div className="order-1 md:order-2 space-y-6">
                     {/* Dynamic Content Based on State */}
                     {!processedImageUrl && !isProcessing && !isEditing ? (
                         /* Show Upload Form when no image is processed and not processing */

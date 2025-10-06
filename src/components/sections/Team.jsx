@@ -30,7 +30,7 @@ function Team() {
                             <div className="relative">
                                 <div className="w-48 h-48 rounded-full overflow-hidden playful-shadow border-4 border-[#8b5e3c]/30 relative">
                                     <img
-                                        src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=400"
+                                        src="/images/founder.jpg"
                                         alt="Shiva Kumar - Founder"
                                         className="w-full h-full object-cover"
                                         onError={(e) => {
@@ -88,7 +88,7 @@ function Team() {
                                         className="bg-[#0077b5] hover:bg-[#005885] text-white playful-shadow flex items-center gap-2 px-6 py-3"
                                     >
                                         <a 
-                                            href="https://linkedin.com/in/shivakumar" 
+                                            href="https://linkedin.com/in/helloshiva" 
                                             target="_blank" 
                                             rel="noopener noreferrer"
                                         >
@@ -102,32 +102,6 @@ function Team() {
                     </div>
                 </div>
 
-                {/* Company Values */}
-                <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div className="bg-white/40 p-6 rounded-lg playful-border hover:bg-white/50 transition-colors">
-                        <div className="w-12 h-12 bg-[#8b5e3c] rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Sparkles className="h-6 w-6 text-white" />
-                        </div>
-                        <h4 className="font-semibold text-[#5D4037] mb-2">Innovation</h4>
-                        <p className="text-sm text-[#614e2e]">Pushing the boundaries of AI creativity</p>
-                    </div>
-                    
-                    <div className="bg-white/40 p-6 rounded-lg playful-border hover:bg-white/50 transition-colors">
-                        <div className="w-12 h-12 bg-[#8b5e3c] rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Heart className="h-6 w-6 text-white" />
-                        </div>
-                        <h4 className="font-semibold text-[#5D4037] mb-2">Accessibility</h4>
-                        <p className="text-sm text-[#614e2e]">Making AI tools available to everyone</p>
-                    </div>
-                    
-                    <div className="bg-white/40 p-6 rounded-lg playful-border hover:bg-white/50 transition-colors">
-                        <div className="w-12 h-12 bg-[#8b5e3c] rounded-full flex items-center justify-center mx-auto mb-4">
-                            <Code className="h-6 w-6 text-white" />
-                        </div>
-                        <h4 className="font-semibold text-[#5D4037] mb-2">Excellence</h4>
-                        <p className="text-sm text-[#614e2e]">Delivering the highest quality experience</p>
-                    </div>
-                </div>
             </div>
         </section>
     )

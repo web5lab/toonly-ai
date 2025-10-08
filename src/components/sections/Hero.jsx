@@ -14,7 +14,7 @@ function Hero({isAuthenticated, isSubscribed, processedImageUrl, originalImageUr
     const { isProcessing, isEditing, customPrompt } = useAppSelector((state) => state.app);
     
     return (
-        <div className="max-w-7xl mx-auto bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 p-6 sm:p-8 mb-16">
+        <div className="max-w-7xl mx-auto bg-[#e9e2d6]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border p-4 sm:p-6 mb-16">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Left Column - Style Selection and Customization */}
                 <div className="order-2 md:order-1 space-y-6">

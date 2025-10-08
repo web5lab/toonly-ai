@@ -390,7 +390,7 @@ const Index = () => {
 
   return (
     <SkeletonTheme baseColor="#e0d8c7" highlightColor="#f4efe4">
-      <div className="min-h-screen w-full bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+      <div className="bg-[url('https://i.ibb.co/DDcDBgws/Chat-GPT-Image-Apr-3-2025-07-56-00-PM.png')] bg-cover bg-center min-h-screen w-full backdrop-blur-sm md:bg-fixed">
         <Header
           prevCreditsRef={prevCreditsRef}
           isAuthenticated={isAuthenticated}

@@ -43,6 +43,8 @@ import { SubmitStyleModal } from "../components/modals/SubmitStyleModal";
 import PricingModal from "../components/modals/PricingModal";
 import MobileApp from "../components/sections/MobileApp";
 import Team from "../components/sections/Team";
+import EditImageSection from "../components/sections/EditImageSection";
+import GenerateImageSection from "../components/sections/GenerateImageSection";
 
 
 const Index = () => {
@@ -472,6 +474,8 @@ const Index = () => {
             <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} handleGenerateImage={handleGenerateImage} downloadImage={downloadImage} />
           </div>
           {/* <HowTo /> */}
+          <EditImageSection />
+          <GenerateImageSection />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           <Testimonials />
           {/* <Team /> */}

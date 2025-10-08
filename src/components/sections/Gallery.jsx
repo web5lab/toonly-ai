@@ -30,11 +30,12 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
     };
 
     return (
-        <section id="gallery-section" className="py-16 text-center mb-16">
-            <div className="flex flex-col items-center mb-8">
-                <h2 className="text-3xl font-bold mb-4 text-white [text-shadow:1px_1px_2px_rgba(93,64,55,0.7)]">
-                    <span className="text-4xl">AI Photo Editing Gallery</span> <br />
-                    100+ Creative Styles - See What's Possible with Simple Prompts!
+        <section id="gallery-section" className="py-16 text-center mb-16 bg-gradient-to-br from-indigo-600 via-purple-600 to-pink-600 rounded-3xl shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE4YzMuMzE0IDAgNi0yLjY4NiA2LTZzLTIuNjg2LTYtNi02LTYgMi42ODYtNiA2IDIuNjg2IDYgNiA2eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+            <div className="flex flex-col items-center mb-8 relative z-10">
+                <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">
+                    <span className="text-4xl sm:text-5xl block mb-2">AI Photo Editing Gallery</span>
+                    <span className="text-xl sm:text-2xl font-normal opacity-90">100+ Creative Styles - See What's Possible with Simple Prompts!</span>
                 </h2>
                 {/* <Button
                     onClick={onSubmitStyle}
@@ -45,11 +46,11 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                     Submit New Style
                 </Button> */}
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto relative z-10">
                 {currentGalleryItems.map((item) => (
                     <div
                         key={item.id}
-                        className="relative bg-[#e9e2d6]/70 backdrop-blur-sm rounded-lg playful-shadow playful-border overflow-hidden flex flex-col"
+                        className="relative bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl overflow-hidden flex flex-col hover:shadow-2xl transition-all duration-300 hover:scale-105"
                     >
                         <img
                             src={item.src}

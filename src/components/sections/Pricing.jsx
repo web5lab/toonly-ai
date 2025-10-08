@@ -52,21 +52,22 @@ function Pricing({ triggerAuthModal }) {
 
 
   return (
-    <section id="pricing" className="py-16 bg-[#f4efe4]/70 backdrop-blur-sm rounded-xl playful-shadow playful-border mb-16 text-[#3a2e23]">
-      <div className="container max-w-5xl mx-auto">
+    <section id="pricing" className="py-16 bg-white/80 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-200 mb-16 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 opacity-60"></div>
+      <div className="container max-w-5xl mx-auto relative z-10">
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#5D4037] mb-2 flex items-center justify-center gap-2">
-            <StarIcon className="h-7 w-7 text-yellow-400" />
+          <h2 className="text-2xl sm:text-3xl font-bold text-slate-800 mb-2 flex items-center justify-center gap-2">
+            <StarIcon className="h-7 w-7 text-yellow-500" />
             Choose Your Plan
           </h2>
-          <p className="text-center text-[#614e2e]/90">
+          <p className="text-center text-slate-600">
             Choose a subscription that fits your needs. Each transformation costs 10 stars.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-2">
           {/* Basic Plan */}
-          <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/30 flex flex-col hover:bg-white/40 transition-colors shadow-md ${user?.currentPlan === 'basic' ? 'ring-2 ring-[#8b5e3c]' : ''}`}>
+          <div className={`border-2 border-slate-200 rounded-2xl p-6 text-center bg-white/90 flex flex-col hover:shadow-xl transition-all duration-300 ${user?.currentPlan === 'basic' ? 'ring-2 ring-indigo-500' : ''}`}>
             {user?.currentPlan === 'basic' && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#8b5e3c] text-white px-3 py-0.5 rounded-full text-xs font-bold">Current Plan</div>
             )}
@@ -125,7 +126,7 @@ function Pricing({ triggerAuthModal }) {
           </div>
 
           {/* Starter Plan */}
-          <div className={`border border-[#5D4037] rounded-lg p-6 text-center bg-white/30 flex flex-col hover:bg-white/40 transition-colors shadow-md ${user?.currentPlan === 'starter' ? 'ring-2 ring-[#8b5e3c]' : ''}`}>
+          <div className={`border-2 border-slate-200 rounded-2xl p-6 text-center bg-white/90 flex flex-col hover:shadow-xl transition-all duration-300 ${user?.currentPlan === 'starter' ? 'ring-2 ring-indigo-500' : ''}`}>
             {user?.currentPlan === 'starter' && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-[#8b5e3c] text-white px-3 py-0.5 rounded-full text-xs font-bold">Current Plan</div>
             )}
@@ -184,7 +185,7 @@ function Pricing({ triggerAuthModal }) {
           </div>
 
           {/* Pro Plan - Most Popular */}
-          <div className={`border-2 border-yellow-500 rounded-lg p-6 text-center bg-white/50 flex flex-col ring-2 ring-yellow-500/50 shadow-lg relative ${user?.currentPlan === 'pro' ? 'ring-2 ring-yellow-500' : ''}`}>
+          <div className={`border-2 border-indigo-500 rounded-2xl p-6 text-center bg-gradient-to-br from-indigo-50 to-purple-50 flex flex-col shadow-2xl relative hover:scale-105 transition-all duration-300 ${user?.currentPlan === 'pro' ? 'ring-2 ring-indigo-600' : ''}`}>
             {user?.currentPlan === 'pro' && (
               <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-500 text-[#3a2e23] px-3 py-0.5 rounded-full text-xs font-bold">Current Plan</div>
             )}

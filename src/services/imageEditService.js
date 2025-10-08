@@ -6,6 +6,7 @@ import axiosInstance from "../axios/axiosInstance";
 const BACKEND_BASE_URL = import.meta.env.VITE_BETTER_AUTH_URL || ''; // Provide a default
 const TRANSFORM_API_ENDPOINT = `${BACKEND_BASE_URL.replace(/\/$/, '')}/api/transform-image`;
 const EDIT_API_ENDPOINT = `${BACKEND_BASE_URL.replace(/\/$/, '')}/api/edit-transformed-image`;
+const GENERATE_API_ENDPOINT = `${BACKEND_BASE_URL.replace(/\/$/, '')}/api/generate-image`;
 
 // Helper function to convert File to Base64
 const fileToBase64 = (file) => {
@@ -117,8 +118,51 @@ async function transformImageWithPrompt(file, prompt) {
   return callTransformApi(imageBase64, prompt);
 }
 
+// Generate new image from prompt only (15 credits)
+async function generateImageFromPrompt(prompt) {
+  console.log("[Service] Calling generate-image endpoint...");
+  try {
+    const token = localStorage.getItem('authToken');
+    const response = await axiosInstance.post(`/user/generate-image`, {
+      prompt
+    }, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    if (!response.status || response.status < 200 || response.status >= 300) {
+      let errorData;
+      try {
+        errorData = await response.data;
+      } catch (e) {
+        errorData = { error: response.statusText };
+      }
+
+      console.error("[Service] Generate API Error Response:", errorData);
+      const error = new Error(errorData.error || `HTTP error! Status: ${response.status}`);
+      error.status = response.status;
+      throw error;
+    }
+
+    const data = await response.data;
+    console.log("[Service] Generate API Success Response:", data);
+
+    if (!data.generatedImageBase64) {
+      throw new Error('API response did not contain generatedImageBase64.');
+    }
+
+    return data.generatedImageBase64;
+
+  } catch (error) {
+    console.error("[Service] Error calling generate API:", error);
+    throw error;
+  }
+}
+
 export const imageEditService = {
   transformImageWithPrompt,
   callEditApi,
-  callTransformApi, 
+  callTransformApi,
+  generateImageFromPrompt,
 }; 

@@ -294,6 +294,65 @@ const Index = () => {
     processImage(promptToUse);
   };
 
+  const handleGenerateImage = useCallback(async () => {
+    if (!isAuthenticated) {
+      toast.info("Please sign in to generate images.");
+      triggerAuthModal();
+      return;
+    }
+
+    const generatePrompt = customPrompt.trim();
+    if (!generatePrompt) {
+      toast.info("Please enter a prompt describing the image you want to generate.");
+      return;
+    }
+
+    if (credits < 15) {
+      toast.error("Not enough credits to generate an image.");
+      dispatch(setPricingModalOpen(true));
+      return;
+    }
+
+    if (isProcessing || isEditing) {
+      toast.info("Please wait for the current process to finish.");
+      return;
+    }
+
+    // Reset timer
+    console.log("[Generate Image] Starting generation, resetting timer.");
+    if (animationFrameRef.current) {
+      cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
+    }
+    startTimeRef.current = null;
+    dispatch(setProcessingTime(0));
+
+    dispatch(setProcessing(true));
+    dispatch(setProcessedImageUrl(null));
+    dispatch(setOriginalImageUrl(null));
+
+    try {
+      console.log(`[Frontend Index] Calling imageEditService.generateImageFromPrompt with prompt: "${generatePrompt}"`);
+      const generatedImageUrl = await imageEditService.generateImageFromPrompt(generatePrompt);
+
+      dispatch(setProcessedImageUrl(generatedImageUrl));
+      toast.success("Image generated successfully!");
+      await refreshCredits();
+
+      // Add to history
+      addToHistory({
+        originalImage: null,
+        processedImage: generatedImageUrl,
+        style: 'generated',
+        customPrompt: generatePrompt,
+      });
+    } catch (error) {
+      handleApiError(error);
+    } finally {
+      dispatch(setProcessing(false));
+    }
+  }, [customPrompt, isAuthenticated, credits, refreshCredits, isProcessing, isEditing, dispatch]);
+
   const downloadImage = useCallback(() => {
     if (!processedImageUrl) return;
 
@@ -410,7 +469,7 @@ const Index = () => {
         <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 overflow-x-hidden">
           <HeroTittle />
           <div className="hero-section">
-            <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} downloadImage={downloadImage} />
+            <Hero isAuthenticated={isAuthenticated} isSubscribed={isSubscribed} isProcessing={isProcessing} isEditing={isEditing} processedImageUrl={processedImageUrl} originalImageUrl={originalImageUrl} selectedStyle={selectedStyle} customPrompt={customPrompt} formattedProcessingTime={formattedProcessingTime} handleImageSelect={handleImageSelect} handleStyleChange={handleStyleChange} setCustomPrompt={setCustomPrompt} handleTransformClick={handleTransformClick} handleEditImage={handleEditImage} handleGenerateImage={handleGenerateImage} downloadImage={downloadImage} />
           </div>
           {/* <HowTo /> */}
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />

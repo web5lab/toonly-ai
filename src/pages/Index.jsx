@@ -45,6 +45,7 @@ import MobileApp from "../components/sections/MobileApp";
 import Team from "../components/sections/Team";
 import EditImageSection from "../components/sections/EditImageSection";
 import GenerateImageSection from "../components/sections/GenerateImageSection";
+import ImageTransformSection from "../components/sections/ImageTransformSection";
 
 
 const Index = () => {
@@ -476,6 +477,7 @@ const Index = () => {
           {/* <HowTo /> */}
           <EditImageSection />
           <GenerateImageSection />
+          <ImageTransformSection />
           <Gallery onStyleSelect={handleStyleChange} onSubmitStyle={() => dispatch(setSubmitStyleModalOpen(true))} />
           <Testimonials />
           {/* <Team /> */}

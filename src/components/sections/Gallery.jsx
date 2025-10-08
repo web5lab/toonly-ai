@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { Button } from "@/components/ui/button";
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/components/ui/pagination";
-import { Plus } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { GALLERY_ITEMS } from '../../data/data';
 
 const ITEMS_PER_PAGE = 6; // Number of gallery items per page
 function Gallery({ onStyleSelect, onSubmitStyle }) {
-     const [currentPage, setCurrentPage] = useState(1); // State for current pagination page
+    const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState(1); // State for current pagination page
     const totalPages = Math.ceil(GALLERY_ITEMS.length / ITEMS_PER_PAGE);
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
@@ -68,6 +70,18 @@ function Gallery({ onStyleSelect, onSubmitStyle }) {
                     </div>
                 ))}
             </div>
+
+            {/* View All Button */}
+            <div className="mt-8 text-center">
+                <Button
+                    onClick={() => navigate('/gallery')}
+                    className="bg-[#8b5e3c] hover:bg-[#6d4c30] text-white playful-shadow px-8 py-6 text-lg"
+                >
+                    View All {GALLERY_ITEMS.length} Styles
+                    <ArrowRight className="h-5 w-5 ml-2" />
+                </Button>
+            </div>
+
             {/* <Pagination className="mt-8">
                 <PaginationContent>
                     <PaginationItem>

@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import Legal from "./pages/Legal";
+import GalleryPage from "./pages/GalleryPage";
 
 // Loading component for PersistGate
 const Loading = () => (
@@ -53,6 +54,7 @@ const App = () => (
               <Routes>
                 <Route path="/auth-success" element={<AuthHandler />} />
                 <Route path="/" element={<Index />} />
+                <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                 <Route path="/terms-of-service" element={<TermsOfService />} />
                 <Route path="/legal" element={<Legal />} />
